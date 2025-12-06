@@ -3,12 +3,12 @@
 import { Sparkles, Droplets, Zap, Leaf } from 'lucide-react';
 
 const features = [
-  {
-    icon: Sparkles,
-    title: 'Gentle Nasal Cleaning',
-    description: 'Soft, controlled flow ensures comfortable and effective cleaning without irritation.',
-    color: 'from-red-500 to-rose-500'
-  },
+  // {
+  //   icon: Sparkles,
+  //   title: 'Gentle Nasal Cleaning',
+  //   description: 'Soft, controlled flow ensures comfortable and effective cleaning without irritation.',
+  //   color: 'from-red-500 to-rose-500'
+  // },
   {
     icon: Droplets,
     title: 'Relieves Congestion & Allergies',
