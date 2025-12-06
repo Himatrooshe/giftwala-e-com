@@ -44,7 +44,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                   ? 'bg-gradient-to-r from-pink-500 to-rose-600'
                   : product.badge === 'COMING SOON'
                   ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
-                  : 'bg-blue-600'
+                  : 'bg-red-600'
               }`}>
                 {product.badge}
               </span>
@@ -84,7 +84,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Product Info */}
         <div className="p-3 space-y-1.5 flex-1 flex flex-col">
           {/* Title */}
-          <h3 className="text-[13px] font-semibold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors leading-snug">
+          <h3 className="text-[13px] font-semibold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug">
             {product.name}
           </h3>
 

@@ -7,13 +7,13 @@ const features = [
     icon: Sparkles,
     title: 'Gentle Nasal Cleaning',
     description: 'Soft, controlled flow ensures comfortable and effective cleaning without irritation.',
-    color: 'from-cyan-500 to-blue-500'
+    color: 'from-red-500 to-rose-500'
   },
   {
     icon: Droplets,
     title: 'Relieves Congestion & Allergies',
     description: 'Flush out allergens, mucus, and irritants for instant sinus relief.',
-    color: 'from-blue-500 to-indigo-500'
+    color: 'from-amber-500 to-orange-500'
   },
   {
     icon: Zap,

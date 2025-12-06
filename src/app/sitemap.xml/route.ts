@@ -3,7 +3,7 @@ import { products } from '@/data/products';
 
 export async function GET(request: Request) {
   // Use production domain
-  const baseUrl = 'https://www.flashshopbd.com';
+  const baseUrl = 'https://www.giftwalabd.com';
   const lastmod = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
   
   const pages = [

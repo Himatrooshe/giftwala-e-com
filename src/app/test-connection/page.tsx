@@ -73,7 +73,7 @@ export default function TestConnectionPage() {
           <button
             onClick={testGoogleAppsScript}
             disabled={isLoading}
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            className="w-full bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 disabled:opacity-50"
           >
             {isLoading ? 'Testing...' : 'Test Connection (no-cors)'}
           </button>
@@ -105,9 +105,9 @@ export default function TestConnectionPage() {
           </ol>
         </div>
 
-        <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <h3 className="font-semibold text-blue-800 mb-2">Common Issues:</h3>
-          <ul className="text-sm text-blue-700 space-y-1">
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <h3 className="font-semibold text-red-800 mb-2">Common Issues:</h3>
+          <ul className="text-sm text-red-700 space-y-1">
             <li>• Google Apps Script not deployed as web app</li>
             <li>• CORS policy blocking requests</li>
             <li>• Incorrect web app URL</li>

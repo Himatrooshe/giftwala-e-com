@@ -81,9 +81,9 @@ export default function ThankYouOrder() {
                 </p>
               </div>
             )}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 inline-block">
               {lastOrder && (
-                <p className="text-blue-900">
+                <p className="text-red-900">
                   Estimated delivery: 2-3 working days · {lastOrder.deliveryLocation === 'outside' ? 'Outside Dhaka' : 'Inside Dhaka'}
                 </p>
               )}
@@ -126,8 +126,8 @@ export default function ThankYouOrder() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Package className="w-6 h-6 text-blue-600" />
+                <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Package className="w-6 h-6 text-red-600" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Order Processing</h3>
                 <p className="text-sm text-gray-600">
@@ -177,12 +177,12 @@ export default function ThankYouOrder() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8"
+            className="bg-red-50 border border-red-200 rounded-xl p-6 mb-8"
           >
-            <h2 className="text-lg font-semibold text-blue-800 mb-3 flex items-center gap-2">
+            <h2 className="text-lg font-semibold text-red-800 mb-3 flex items-center gap-2">
               📞 Order Confirmation
             </h2>
-            <p className="text-blue-700 leading-relaxed">
+            <p className="text-red-700 leading-relaxed">
               Our specialist will contact you within 24 hours to confirm your order details, delivery address, and preferred payment method. Please keep your phone available.
             </p>
           </motion.div>
@@ -216,7 +216,7 @@ export default function ThankYouOrder() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
             >
               <Home className="w-4 h-4" />
               Back to Home

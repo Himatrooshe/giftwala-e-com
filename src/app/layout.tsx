@@ -14,22 +14,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'FlashShop Bangladesh | Online Shopping | Quality Products Fast Delivery',
-  description: 'FlashShop - Your trusted online shopping destination in Bangladesh. Buy quality health & wellness, personal care, kids products with fast delivery across Bangladesh. 100% authentic products, COD available. Order now!',
+  metadataBase: new URL('https://www.giftwalabd.com'),
+  title: 'Giftwala Bangladesh | Online Gifts & Surprises | Fast Delivery',
+  description: 'Giftwala - Your trusted online gift delivery service in Bangladesh. Send premium gifts, surprise boxes, flowers and more with fast delivery across Bangladesh. Perfect for birthdays, anniversaries and special occasions.',
   keywords: [
-    'FlashShop',
-    'FlashShop Bangladesh',
-    'online shopping Bangladesh',
-    'e-commerce Bangladesh',
-    'online store Bangladesh',
-    'buy online Bangladesh',
-    'health products Bangladesh',
-    'personal care products',
-    'kids products Bangladesh',
-    'wellness products',
-    'nasal cleaner',
-    'foot spray',
-    'pillow Bangladesh',
+    'Giftwala',
+    'Giftwala Bangladesh',
+    'online gifts Bangladesh',
+    'gift delivery Bangladesh',
+    'gift shop Bangladesh',
+    'send gifts Bangladesh',
+    'surprise box Bangladesh',
+    'birthday gifts Bangladesh',
+    'anniversary gifts Bangladesh',
     'fast delivery Bangladesh',
     'cash on delivery',
     'COD Bangladesh',
@@ -38,9 +35,9 @@ export const metadata: Metadata = {
     'Bangladesh shopping',
     'best online store Bangladesh',
   ],
-  authors: [{ name: 'FlashShop Bangladesh' }],
-  creator: 'FlashShop Bangladesh',
-  publisher: 'FlashShop Bangladesh',
+  authors: [{ name: 'Giftwala Bangladesh' }],
+  creator: 'Giftwala Bangladesh',
+  publisher: 'Giftwala Bangladesh',
   robots: {
     index: true,
     follow: true,
@@ -55,25 +52,25 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_BD',
-    url: 'https://www.flashshopbd.com',
-    title: 'FlashShop Bangladesh - Online Shopping | Quality Products | Fast Delivery',
-    description: 'Shop quality health, wellness, personal care & kids products online in Bangladesh. Fast delivery, 100% authentic, COD available. Your trusted online shopping partner.',
-    siteName: 'FlashShop Bangladesh',
+    url: 'https://www.giftwalabd.com',
+    title: 'Giftwala Bangladesh - Online Gifts & Surprises | Fast Delivery',
+    description: 'Send curated gifts, surprise boxes, flowers and more anywhere in Bangladesh. Fast delivery, premium packaging, COD available. Make every occasion special with Giftwala.',
+    siteName: 'Giftwala Bangladesh',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'FlashShop Bangladesh - Online Shopping Store',
+        alt: 'Giftwala Bangladesh - Online Gift Store',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FlashShop Bangladesh | Online Shopping Store',
-    description: 'Shop quality products online in Bangladesh. Fast delivery, authentic products, COD available. Order now!',
+    title: 'Giftwala Bangladesh | Online Gift Shop',
+    description: 'Send thoughtful gifts online in Bangladesh. Fast delivery, premium packaging, COD available. Order now on Giftwala!',
     images: ['/twitter-image.jpg'],
-    creator: '@flashshop',
+    creator: '@giftwalabd',
   },
   icons: {
     icon: '/flashshop-icon.png',
@@ -82,7 +79,7 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   other: {
     'og:phone_number': '+880 1345903907',
-    'og:email': 'support@flashshop.com',
+    'og:email': 'support@giftwalabd.com',
     'og:locality': 'Dhaka',
     'og:region': 'Dhaka',
     'og:country-name': 'Bangladesh',
@@ -104,8 +101,8 @@ export default function RootLayout({
       <head>
         {/* Additional SEO Meta Tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#2563eb" />
-        <link rel="canonical" href="https://www.flashshopbd.com" />
+        <meta name="theme-color" content="#dc2626" />
+        <link rel="canonical" href="https://www.giftwalabd.com" />
         
         {/* Google Analytics */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-LB4F7582J6"></script>

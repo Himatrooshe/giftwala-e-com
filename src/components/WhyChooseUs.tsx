@@ -6,8 +6,8 @@ import { Award, Truck, ShieldCheck, HeartHandshake } from 'lucide-react';
 const reasons = [
   {
     icon: Award,
-    title: 'FlashShop™ Quality',
-    description: 'Premium products tested and verified for your safety and satisfaction.'
+    title: 'Giftwala™ Quality',
+    description: 'Premium gifts curated and verified for your special moments.'
   },
   {
     icon: Truck,
@@ -39,7 +39,7 @@ export default function WhyChooseUs() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Why Choose <span className="text-gray-900">FlashShop?</span>
+            Why Choose <span className="text-gray-900">Giftwala?</span>
           </h2>
           <p className="text-xl text-gray-900 max-w-2xl mx-auto">
             We're committed to providing you with the best products and service

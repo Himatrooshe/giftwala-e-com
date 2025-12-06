@@ -14,11 +14,11 @@ export default function ProductsPage() {
     setMounted(true);
     
     // Update document title and meta tags dynamically for client component
-    document.title = 'Products - FlashShop Bangladesh | Buy Quality Products Online';
+    document.title = 'Products - Giftwala Bangladesh | Browse Gifts Online';
     
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Browse all products at FlashShop Bangladesh. Quality health, wellness, personal care & kids products. Fast delivery, COD available, 100% authentic.');
+      metaDescription.setAttribute('content', 'Browse all gifts at Giftwala Bangladesh. Curated surprise boxes, flowers, and thoughtful gifts with fast delivery and COD available.');
     }
   }, []);
 

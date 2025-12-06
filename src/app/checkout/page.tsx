@@ -147,7 +147,7 @@ export default function CheckoutPage() {
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2 text-gray-900 hover:text-blue-600 transition-colors">
+            <Link href="/" className="flex items-center gap-2 text-gray-900 hover:text-red-600 transition-colors">
               <ArrowLeft size={20} />
               Back to Home
             </Link>
@@ -305,7 +305,7 @@ export default function CheckoutPage() {
                     required
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
                     placeholder="Enter your full name / আপনার পুরো নাম লিখুন"
                   />
                 </div>
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
                     required
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
                     placeholder="01XXXXXXXXX"
                   />
                 </div>
@@ -338,7 +338,7 @@ export default function CheckoutPage() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -355,7 +355,7 @@ export default function CheckoutPage() {
                     value={formData.fullAddress}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors resize-none"
                     placeholder="Enter your complete address with area, city, district / আপনার সম্পূর্ণ ঠিকানা লিখুন"
                   />
                 </div>
@@ -368,7 +368,7 @@ export default function CheckoutPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
                       formData.deliveryLocation === 'inside'
-                        ? 'border-blue-500 bg-blue-50'
+                        ? 'border-red-500 bg-red-50'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}>
                       <input
@@ -384,7 +384,7 @@ export default function CheckoutPage() {
                         <div className="text-sm text-gray-600">৳{insideDhakaDelivery}</div>
                       </div>
                       {formData.deliveryLocation === 'inside' && (
-                        <div className="ml-2 text-blue-500">
+                        <div className="ml-2 text-red-500">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
@@ -394,7 +394,7 @@ export default function CheckoutPage() {
 
                     <label className={`flex items-center p-4 border-2 rounded-lg cursor-pointer transition-all ${
                       formData.deliveryLocation === 'outside'
-                        ? 'border-blue-500 bg-blue-50'
+                        ? 'border-red-500 bg-red-50'
                         : 'border-gray-300 hover:border-gray-400'
                     }`}>
                       <input
@@ -410,7 +410,7 @@ export default function CheckoutPage() {
                         <div className="text-sm text-gray-600">৳{outsideDhakaDelivery}</div>
                       </div>
                       {formData.deliveryLocation === 'outside' && (
-                        <div className="ml-2 text-blue-500">
+                        <div className="ml-2 text-red-500">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
@@ -422,12 +422,12 @@ export default function CheckoutPage() {
 
 
                 {/* Payment Method Info */}
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <div className="flex items-center gap-2 text-blue-900 font-medium mb-2">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2 text-red-900 font-medium mb-2">
                     <CreditCard size={20} />
                     Payment Method / পেমেন্ট পদ্ধতি
                   </div>
-                  <p className="text-blue-800 text-sm">
+                  <p className="text-red-800 text-sm">
                     We accept Cash on Delivery only. You can pay when the product is delivered to your address.
                     <br />
                     শুধুমাত্র ক্যাশ অন ডেলিভারি গ্রহণ করা হয়। পণ্য পৌঁছানোর সময় পেমেন্ট করতে পারবেন।

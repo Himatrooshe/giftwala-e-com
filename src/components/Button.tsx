@@ -18,7 +18,7 @@ export default function Button({
   type = 'button',
   disabled = false 
 }: ButtonProps) {
-  const baseClasses = "px-4 py-2 relative rounded group overflow-hidden font-medium bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white inline-block transition-all duration-200 ease-out";
+  const baseClasses = "px-4 py-2 relative rounded group overflow-hidden font-medium bg-gradient-to-r from-[#01B6A7] via-[#1086D2] to-[#01B6A7] text-white inline-block transition-all duration-200 ease-out";
   const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "";
   const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`;
 

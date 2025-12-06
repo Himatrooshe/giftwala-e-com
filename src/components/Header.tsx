@@ -190,8 +190,8 @@ export default function Header() {
               className="lg:hidden absolute left-1/2 transform -translate-x-1/2 z-10 cursor-pointer"
             >
               <Image
-                src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521881/flashshop-mobile_i0d0po.png"
-                alt="FlashShop Logo"
+                src="https://res.cloudinary.com/dufzkjd0c/image/upload/v1764877604/Final_es4mgn.png"
+                alt="Giftwala Logo"
                 width={120}
                 height={48}
                 className="h-7 sm:h-8 w-auto"
@@ -224,8 +224,8 @@ export default function Header() {
               className="hidden lg:flex items-center cursor-pointer"
             >
               <Image
-                src="/flashshop-mobile.png"
-                alt="FlashShop Logo"
+                src="https://res.cloudinary.com/dufzkjd0c/image/upload/v1764877604/Final_es4mgn.png"
+                alt="Giftwala Logo"
                 width={160}
                 height={48}
                 className="h-8 xl:h-9 w-auto"
@@ -254,7 +254,7 @@ export default function Header() {
                 >
                   <ShoppingCart size={18} className="sm:w-5 sm:h-5" />
                   {totalQuantity > 0 && (
-                    <span className="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
+                    <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                       {totalQuantity}
                     </span>
                   )}
@@ -362,7 +362,7 @@ export default function Header() {
                   >
                     <ShoppingCart size={18} className="sm:w-5 sm:h-5" />
                     {totalQuantity > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 bg-blue-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
+                      <span className="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                         {totalQuantity}
                       </span>
                     )}
@@ -447,7 +447,7 @@ export default function Header() {
                     >
                       <ShoppingCart size={20} />
                       {totalQuantity > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
+                        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                           {totalQuantity}
                         </span>
                       )}
@@ -539,7 +539,7 @@ export default function Header() {
                     >
                       <ShoppingCart size={20} />
                       {totalQuantity > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
+                        <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-semibold rounded-full w-4 h-4 flex items-center justify-center">
                           {totalQuantity}
                         </span>
                       )}

@@ -14,12 +14,12 @@ export default function Footer() {
         {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* About FlashShop */}
+          {/* About Giftwala */}
           <div>
             <div className="mb-6">
               <Image
-                src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521881/flashshop-mobile_i0d0po.png"
-                alt="FlashShop Logo"
+                src="https://res.cloudinary.com/dufzkjd0c/image/upload/v1764877604/Final_es4mgn.png"
+                alt="Giftwala Logo"
                 width={180}
                 height={50}
                 className="h-12 w-auto"
@@ -35,7 +35,7 @@ export default function Footer() {
                 href="https://www.facebook.com/share/17p5yog79E/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-200"
+                className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors duration-200"
                 aria-label="Facebook"
               >
                 <Facebook size={20} className="text-gray-700 hover:text-white transition-colors duration-200" />
@@ -66,22 +66,22 @@ export default function Footer() {
             <h4 className="text-lg font-semibold text-gray-900 mb-6">Quick Links</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="#home" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="#home" className="hover:text-red-400 transition-colors duration-200">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="#how-it-works" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="#how-it-works" className="hover:text-red-400 transition-colors duration-200">
                   How It Works
                 </Link>
               </li>
               <li>
-                <Link href="#benefits" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="#benefits" className="hover:text-red-400 transition-colors duration-200">
                   Benefits
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="#contact" className="hover:text-red-400 transition-colors duration-200">
                   Contact
                 </Link>
               </li>
@@ -93,22 +93,22 @@ export default function Footer() {
             <h4 className="text-lg font-semibold text-gray-900 mb-6">Customer Service</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/terms" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/terms" className="hover:text-red-400 transition-colors duration-200">
                   Terms & Conditions
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/privacy" className="hover:text-red-400 transition-colors duration-200">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/return-policy" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/return-policy" className="hover:text-red-400 transition-colors duration-200">
                   Return Policy
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/shipping" className="hover:text-red-400 transition-colors duration-200">
                   Shipping Information
                 </Link>
               </li>
@@ -120,26 +120,26 @@ export default function Footer() {
             <h4 className="text-lg font-semibold text-gray-900 mb-6">Contact Us</h4>
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
-                <MapPin className="text-blue-400 flex-shrink-0 mt-1" size={20} />
+                <MapPin className="text-red-400 flex-shrink-0 mt-1" size={20} />
                 <span className="text-gray-600">
                   Dhaka, Bangladesh
                 </span>
               </li>
               <li className="flex items-start space-x-3">
-                <Phone className="text-blue-400 flex-shrink-0 mt-1" size={20} />
+                <Phone className="text-red-400 flex-shrink-0 mt-1" size={20} />
                 <div>
-                  <a href="tel:+8801345903907" className="hover:text-blue-400 transition-colors duration-200 block">
+                  <a href="tel:+8801345903907" className="hover:text-red-400 transition-colors duration-200 block">
                     +880 1345903907
                   </a>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
-                <Mail className="text-blue-400 flex-shrink-0 mt-1" size={20} />
+                <Mail className="text-red-400 flex-shrink-0 mt-1" size={20} />
                 <a
-                  href="mailto:iflashshopbd001@gmail.com"
-                  className="hover:text-blue-400 transition-colors duration-200"
+                  href="mailto:support@giftwalabd.com"
+                  className="hover:text-red-400 transition-colors duration-200"
                 >
-                  flashshopbd001@gmail.com
+                  support@giftwalabd.com
                 </a>
               </li>
             </ul>
@@ -152,18 +152,18 @@ export default function Footer() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-gray-600 text-sm">
-                © {currentYear} FlashShop. All rights reserved.
+                © {currentYear} Giftwala. All rights reserved.
                 <span className="mx-2">|</span>
-                Develop and Design by <a href="https://portfolio-gold-two-m3rawkfkqv.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800 ml-1">Oshi</a>
+                Develop and Design by <a href="https://portfolio-gold-two-m3rawkfkqv.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-red-600 underline hover:text-red-800 ml-1">Oshi</a>
               </p>
               <div className="flex items-center space-x-6 text-sm">
-                <Link href="/terms" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/terms" className="hover:text-red-400 transition-colors duration-200">
                   Terms
                 </Link>
-                <Link href="/privacy" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/privacy" className="hover:text-red-400 transition-colors duration-200">
                   Privacy
                 </Link>
-                <Link href="/cookies" className="hover:text-blue-400 transition-colors duration-200">
+                <Link href="/cookies" className="hover:text-red-400 transition-colors duration-200">
                   Cookies
                 </Link>
               </div>

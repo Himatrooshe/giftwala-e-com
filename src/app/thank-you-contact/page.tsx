@@ -47,7 +47,7 @@ export default function ThankYouContact() {
               We've received your message and will get back to you within 24 hours. 
               Our team is excited to help you with your inquiry.
             </p>
-            <div className="mt-4 inline-block bg-blue-50 border border-blue-200 text-blue-900 px-4 py-2 rounded-lg">
+            <div className="mt-4 inline-block bg-red-50 border border-red-200 text-red-900 px-4 py-2 rounded-lg">
               Reference ID: <span className="font-semibold">{refId}</span>
             </div>
           </motion.div>
@@ -64,11 +64,11 @@ export default function ThankYouContact() {
             </h2>
             <div className="space-y-3">
               <div className="flex items-center justify-center gap-3">
-                <Mail className="w-5 h-5 text-blue-600" />
-                <span className="text-gray-700">flashshopbd001@gmail.com</span>
+                <Mail className="w-5 h-5 text-red-600" />
+                <span className="text-gray-700">support@giftwalabd.com</span>
               </div>
               <div className="flex items-center justify-center gap-3">
-                <Phone className="w-5 h-5 text-blue-600" />
+                <Phone className="w-5 h-5 text-red-600" />
                 <span className="text-gray-700">+880 1345903907</span>
               </div>
               <p className="text-sm text-gray-600 text-center">Our team responds Sunday–Thursday, 9:00 AM – 6:00 PM.</p>
@@ -84,7 +84,7 @@ export default function ThankYouContact() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
             >
               <Home className="w-4 h-4" />
               Back to Home

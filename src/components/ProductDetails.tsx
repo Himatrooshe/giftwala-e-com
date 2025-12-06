@@ -84,9 +84,9 @@ const productHighlights: Record<string, { label: string; value: string }[]> = {
 };
 
 const reviewColorClasses = [
-  'from-blue-50 to-indigo-50 border-blue-400',
+  'from-red-50 to-rose-50 border-red-400',
   'from-green-50 to-emerald-50 border-green-400',
-  'from-purple-50 to-pink-50 border-purple-400',
+  'from-amber-50 to-yellow-50 border-amber-400',
   'from-orange-50 to-red-50 border-orange-400',
 ];
 
@@ -251,8 +251,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Product Description</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-              <h4 className="font-semibold text-lg mb-3 text-blue-900">🏥 Medical-Grade Quality</h4>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">🏥 Medical-Grade Quality</h4>
               <p className="mb-3">The Smart Nasal Cleaner Bottle is designed to provide gentle and effective nasal irrigation for daily sinus care.</p>
               <p className="text-sm text-gray-700">Made from high-quality, medical-grade materials, this bottle ensures safe and comfortable use for the entire family.</p>
             </div>
@@ -314,8 +314,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Stay Fresh & Confident</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-              <h4 className="font-semibold text-lg mb-3 text-blue-900">Instant Odor Control</h4>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">Instant Odor Control</h4>
               <p>Neutralizes odor-causing bacteria within seconds and keeps your feet dry throughout the day.</p>
             </div>
             <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
@@ -350,8 +350,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h4 className="font-semibold text-lg mb-3 text-purple-900">Adaptive Support</h4>
               <p>Memory foam core adapts to every sleeping position and keeps the spine aligned.</p>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-              <h4 className="font-semibold text-lg mb-3 text-blue-900">Breathable & Hygienic</h4>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">Breathable & Hygienic</h4>
               <p>Removable, washable cover keeps the pillow fresh while ventilation pores prevent heat build-up.</p>
             </div>
             <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 p-6 rounded-r-lg">
@@ -434,7 +434,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           {/* Bengali Instructions */}
           <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="bg-fuchsia-50 border-l-4 border-fuchsia-400 p-4 rounded-r-lg">
               <h4 className="font-semibold text-lg mb-2">১. পানির প্রস্তুতি</h4>
               <p className="mb-2">বোতলে আগে থেকে ফুটিয়ে রাখা পরিস্কার পানি নিন।</p>
               <div className="text-sm text-gray-700 space-y-1">
@@ -478,7 +478,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="bg-fuchsia-50 border-l-4 border-fuchsia-400 p-4 rounded-r-lg">
               <h4 className="font-semibold text-lg mb-2">১. পরিস্কার ও শুকনো করুন</h4>
               <p className="mb-2">স্প্রে করার আগে পা ধুয়ে শুকিয়ে নিন অথবা জুতার ভিতর পরিস্কার করুন।</p>
             </div>
@@ -500,7 +500,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="prose max-w-none">
           <h3 className="text-2xl font-bold text-gray-900 mb-6">ব্যবহার করার নিয়ম</h3>
           <div className="space-y-6 text-gray-900">
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+            <div className="bg-fuchsia-50 border-l-4 border-fuchsia-400 p-4 rounded-r-lg">
               <h4 className="font-semibold text-lg mb-2">১. খুলে বাতাসে রাখুন</h4>
               <p className="mb-2">প্যাকেজিং থেকে বের করে কয়েক ঘন্টা বাতাসে রাখুন যাতে ফোম সম্পূর্ণভাবে প্রসারিত হতে পারে।</p>
             </div>
@@ -539,8 +539,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h4 className="font-semibold text-lg mb-3 text-orange-900">Skin Safety</h4>
               <p>For external use only. Do not use on broken or irritated skin.</p>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-              <h4 className="font-semibold text-lg mb-3 text-blue-900">Patch Test</h4>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">Patch Test</h4>
               <p>Spray on a small area first if you have sensitive skin. Keep away from eyes and mouth.</p>
             </div>
           </div>
@@ -561,8 +561,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <h4 className="font-semibold text-lg mb-3 text-green-900">Cover Maintenance</h4>
               <p>Remove the cover and machine wash on gentle cycle. Lay flat to dry for best results.</p>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-              <h4 className="font-semibold text-lg mb-3 text-blue-900">Usage Tips</h4>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">Usage Tips</h4>
               <p>Allow the pillow to fully air out before first use and fluff gently every few days.</p>
             </div>
           </div>
@@ -614,8 +614,8 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
-              <h4 className="font-semibold text-lg mb-3 text-blue-900">👶 Child Safety</h4>
+            <div className="bg-gradient-to-r from-red-50 to-rose-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+              <h4 className="font-semibold text-lg mb-3 text-red-900">👶 Child Safety</h4>
               <p>Children should use under adult supervision. Use gentle pressure only.</p>
             </div>
           </div>
@@ -634,13 +634,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const renderReviewsContent = () => {
     const reviews = productReviews[product.id] ?? [
       {
-        name: 'FlashShop Customer',
-        quote: `Absolutely love the ${product.name}. Quality is great and delivery was fast!`,
+        name: 'Giftwala Customer',
+        quote: `Absolutely loved this gift: ${product.name}. Quality is great and delivery was fast!`,
         time: 'Recently',
       },
       {
         name: 'Verified Buyer',
-        quote: `This ${product.category.toLowerCase()} item from FlashShop exceeded my expectations.`,
+        quote: `This ${product.category.toLowerCase()} gift from Giftwala exceeded my expectations.`,
         time: 'This month',
       },
     ];
@@ -757,7 +757,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                       ? 'bg-gradient-to-r from-pink-500 to-rose-600'
                       : product.badge === 'COMING SOON'
                       ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
-                      : 'bg-blue-600'
+                      : 'bg-red-600'
                   }`}>
                     {product.badge}
                   </span>
@@ -802,9 +802,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </div>
               
               {/* Delivery Info */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-900 font-medium">Delivery Charges:</p>
-                <p className="text-sm text-blue-800 mt-1">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <p className="text-sm text-red-900 font-medium">Delivery Charges:</p>
+                <p className="text-sm text-red-800 mt-1">
                   Inside Dhaka: ৳80 | Outside Dhaka: ৳150
                 </p>
               </div>
@@ -880,7 +880,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               {product.inStock ? (
                 <button 
                   onClick={handleOrderNow}
-                  className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 text-white hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group shadow-lg hover:shadow-xl"
+                  className="w-full py-4 px-8 font-medium text-sm uppercase tracking-wide bg-gradient-to-r from-red-600 via-red-500 to-amber-500 text-white hover:from-red-700 hover:via-red-600 hover:to-amber-600 transition-all duration-300 flex items-center justify-center gap-3 rounded-md group shadow-lg hover:shadow-xl"
                 >
                   <ShoppingCart size={20} />
                   <span>Order Now ({quantity} {quantity === 1 ? 'item' : 'items'})</span>
@@ -951,7 +951,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               You May Also Like
             </h2>
             <p className="text-gray-600 text-lg">
-              Discover more quality products from FlashShop
+              Discover more curated gifts from Giftwala
             </p>
           </motion.div>
 

@@ -109,7 +109,7 @@ function sendOrderEmailNotification(data, orderId, timestamp, orderRow) {
     return;
   }
 
-  const emailTo = "flashshopbd001@gmail.com";
+  const emailTo = "support@giftwalabd.com";
   const subject = "🎉 New Order Received – " + orderId;
 
   // Format timestamp
@@ -287,7 +287,7 @@ function buildHTMLEmailTemplate(data, orderId, formattedDate, orderRow) {
           <tr>
             <td style="background-color: #f9fafb; padding: 25px 40px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0 0 10px 0; color: #6b7280; font-size: 14px; font-weight: 500;">
-                FlashShop Bangladesh
+                Giftwala Bangladesh
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 This is an automated notification. Please do not reply to this email.
@@ -333,7 +333,7 @@ Delivery Cost: ৳${orderRow[10] || 0}
 Total Price: ৳${orderRow[11] || 0}
 
 ---
-FlashShop Bangladesh
+Giftwala Bangladesh
 This is an automated notification.`;
 }
 

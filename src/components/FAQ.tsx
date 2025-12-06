@@ -58,7 +58,7 @@ export default function FAQ() {
             Frequently Asked <span className="text-gray-900">Questions</span>
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-900">
-            Everything you need to know about shopping at FlashShop
+            Everything you need to know about ordering from Giftwala
           </p>
         </motion.div>
 

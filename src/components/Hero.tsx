@@ -11,16 +11,16 @@ export default function Hero() {
       <div className="absolute inset-0 z-0">
         {/* Desktop Background Image */}
         <Image
-          src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521833/product-final-11_era5wm.png"
-          alt="FlashShop Background"
+          src="https://res.cloudinary.com/dufzkjd0c/image/upload/v1764915773/hero-bg-final_u8d7hm.png"
+          alt="Giftwala Background"
           fill
           className="object-cover hidden sm:block"
           priority
         />
         {/* Mobile Background Image */}
         <Image
-          src="https://res.cloudinary.com/dgm2mosta/image/upload/v1764521834/hero-bg-mob-final_sdvzpw.png"
-          alt="FlashShop Mobile Background"
+          src="https://res.cloudinary.com/dufzkjd0c/image/upload/v1764916263/hero-bg-mob_huxvag.png"
+          alt="Giftwala Mobile Background"
           fill
           className="object-cover sm:hidden"
           priority
@@ -52,8 +52,8 @@ export default function Hero() {
                 </span>
               </h1>
               <p className="hero-subtitle text-base sm:text-lg md:text-xl text-gray-900 leading-relaxed font-medium">
-                Discover quality products at FlashShop Bangladesh. Fast delivery, 
-                authentic items, and exceptional customer service - all in one place.
+                Discover thoughtful gifts at Giftwala Bangladesh. Fast delivery,
+                beautiful packaging, and exceptional customer service - all in one place.
               </p>
               
               {/* Key Benefits */}

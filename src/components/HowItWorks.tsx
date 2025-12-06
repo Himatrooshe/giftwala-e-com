@@ -41,7 +41,7 @@ const steps = [
     title: 'Fill with warm water + salt',
     description: 'Add lukewarm water and the recommended amount of nasal salt solution to the bottle.',
     icon: Droplets,
-    color: 'from-blue-500 to-cyan-500'
+    color: 'from-red-500 to-amber-500'
   },
   {
     number: '02',

@@ -14,7 +14,7 @@ export default function FloatingCTA() {
 
   const phoneNumber = '01345903907';
   const whatsappMessageLink = 'https://wa.me/message/QB5ZDFKU4NQBL1';
-  const email = 'flashshopbd001@gmail.com';
+  const email = 'support@giftwalabd.com';
 
   return (
     <div className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 pointer-events-auto transition-opacity duration-300 ${
@@ -26,7 +26,7 @@ export default function FloatingCTA() {
           {/* Call Button */}
           <a
             href={`tel:${phoneNumber}`}
-            className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-2 sm:gap-3 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+            className="bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:from-red-700 hover:via-red-600 hover:to-amber-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-2 sm:gap-3 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
           >
             <Phone size={16} className="sm:w-5 sm:h-5" />
             <span className="hidden sm:inline">Call Now</span>
@@ -60,7 +60,7 @@ export default function FloatingCTA() {
             href="https://m.me/832930269899416?source=qr_link_share"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-2 sm:gap-3 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+            className="bg-red-500 hover:bg-red-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-2 sm:gap-3 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
           >
             {/* Messenger SVG */}
             <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="sm:w-5 sm:h-5">
@@ -93,12 +93,12 @@ export default function FloatingCTA() {
       {/* Main Floating Button */}
       <button
         onClick={toggleMenu}
-        className="relative bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-600 hover:via-blue-700 hover:to-indigo-700 text-white rounded-full shadow-lg hover:shadow-xl flex items-center gap-3 px-4 py-3 transition-all duration-300 transform hover:scale-105 cursor-pointer pointer-events-auto min-w-[120px] sm:min-w-[140px]"
+        className="relative bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:from-red-700 hover:via-red-600 hover:to-amber-600 text-white rounded-full shadow-lg hover:shadow-xl flex items-center gap-3 px-4 py-3 transition-all duration-300 transform hover:scale-105 cursor-pointer pointer-events-auto min-w-[120px] sm:min-w-[140px]"
         type="button"
       >
         {/* Phone Icon in White Circle */}
-        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center border-2 border-blue-500">
-          <Phone size={16} className="sm:w-5 sm:h-5 text-blue-500" />
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center border-2 border-red-500">
+          <Phone size={16} className="sm:w-5 sm:h-5 text-red-500" />
         </div>
         
         {/* Contact Text */}
@@ -114,7 +114,7 @@ export default function FloatingCTA() {
 
       {/* Pulse Animation Background */}
       {!isOpen && (
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 rounded-full animate-ping opacity-20 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-amber-500 rounded-full animate-ping opacity-20 pointer-events-none"></div>
       )}
     </div>
   );

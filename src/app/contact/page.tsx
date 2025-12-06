@@ -65,7 +65,7 @@ export default function Contact() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-20 sm:pt-24 pb-12 sm:pb-16 bg-gradient-to-br from-blue-50 to-white">
+      <section className="pt-20 sm:pt-24 pb-12 sm:pb-16 bg-gradient-to-br from-red-50 to-white">
         <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -74,7 +74,7 @@ export default function Contact() {
             className="text-center mb-12 sm:mb-16"
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6">
-              Contact <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Us</span>
+              Contact <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">Us</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
               Get in touch with our team. We're here to help you with any questions about our products or support you need.
@@ -232,7 +232,7 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Phone</h3>
                     <p className="text-slate-600 mb-2">Call us directly</p>
-                    <a href="tel:+8801345903907" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
+                    <a href="tel:+8801345903907" className="text-red-600 font-medium hover:text-red-700 transition-colors">
                       +880 1345903907
                     </a>
                   </div>
@@ -245,8 +245,8 @@ export default function Contact() {
                   <div>
                     <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
                     <p className="text-slate-600 mb-2">Send us an email</p>
-                    <a href="mailto:flashshopbd001@gmail.com" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
-                    flashshopbd001@gmail.com
+                    <a href="mailto:support@giftwalabd.com" className="text-red-600 font-medium hover:text-red-700 transition-colors">
+                    support@giftwalabd.com
                     </a>
                   </div>
                 </div>

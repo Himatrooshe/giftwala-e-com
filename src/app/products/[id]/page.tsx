@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 
   return {
-    title: `${product.name} | FlashShop BD`,
+    title: `${product.name} | Giftwala BD`,
     description: product.tagline || product.description,
   };
 }

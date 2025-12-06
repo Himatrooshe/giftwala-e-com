@@ -29,7 +29,7 @@ export default function Home() {
       {/* New Arrivals */}
       <NewArrivals />
 
-      {/* Why Choose FlashShop - Trust indicators */}
+      {/* Why Choose Giftwala - Trust indicators */}
       <WhyChooseUs />
 
       {/* Customer Testimonials - Social proof */}
@@ -52,11 +52,11 @@ export default function Home() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'FlashShop Bangladesh',
-            alternateName: 'FlashShop',
-            url: 'https://www.flashshopbd.com',
-            logo: 'https://www.flashshopbd.com/flashshop.png',
-            description: 'FlashShop is Bangladesh\'s trusted online shopping destination for quality health, wellness, personal care, and kids products. Fast delivery across Bangladesh with 100% authentic products.',
+            name: 'Giftwala Bangladesh',
+            alternateName: 'Giftwala',
+            url: 'https://www.giftwalabd.com',
+            logo: 'https://www.giftwalabd.com/og-image.jpg',
+            description: 'Giftwala is Bangladesh\'s trusted online gift delivery service for premium gifts, surprise boxes, flowers and more. Fast delivery across Bangladesh with beautiful packaging.',
             address: {
               '@type': 'PostalAddress',
               addressLocality: 'Dhaka',
@@ -85,9 +85,9 @@ export default function Home() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Store',
-            name: 'FlashShop Bangladesh',
-            image: 'https://www.flashshopbd.com/flashshop.png',
-            url: 'https://www.flashshopbd.com',
+            name: 'Giftwala Bangladesh',
+            image: 'https://www.giftwalabd.com/og-image.jpg',
+            url: 'https://www.giftwalabd.com',
             telephone: '+880-1345903907',
             priceRange: '৳৳',
             address: {
@@ -132,13 +132,13 @@ export default function Home() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            name: 'FlashShop Bangladesh',
-            url: 'https://www.flashshopbd.com',
+            name: 'Giftwala Bangladesh',
+            url: 'https://www.giftwalabd.com',
             potentialAction: {
               '@type': 'SearchAction',
               target: {
                 '@type': 'EntryPoint',
-                urlTemplate: 'https://www.flashshopbd.com/products?q={search_term_string}',
+                urlTemplate: 'https://www.giftwalabd.com/products?q={search_term_string}',
               },
               'query-input': 'required name=search_term_string',
             },

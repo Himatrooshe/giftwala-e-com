@@ -112,7 +112,7 @@ export const products: Product[] = [
     images: [
       'https://res.cloudinary.com/dgm2mosta/image/upload/v1764521824/Fujiqui_nsmknz.jpg',
     ],
-    description: 'An innovative LED table lamp that will revolutionize your workspace and home lighting. Coming soon to FlashShop!',
+    description: 'An innovative LED table lamp that will revolutionize your workspace and home lighting. Coming soon to Giftwala!',
   },
   {
     id: 'wheel-cover',

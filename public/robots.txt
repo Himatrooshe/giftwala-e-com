@@ -8,7 +8,7 @@ Disallow: /thank-you-order
 Disallow: /thank-you-contact
 
 # Sitemap location
-Sitemap: https://www.flashshopbd.com/sitemap.xml
+Sitemap: https://www.giftwalabd.com/sitemap.xml
 
 # Crawl-delay for better server performance
 Crawl-delay: 1

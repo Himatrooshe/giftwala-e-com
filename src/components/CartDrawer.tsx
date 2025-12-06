@@ -86,7 +86,7 @@ export default function CartDrawer() {
         <div className="p-5 border-t border-gray-100 space-y-3">
           <Link
             href="/checkout"
-            className="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-gray-900 text-white font-semibold text-sm hover:bg-blue-600 transition-colors"
+            className="inline-flex items-center justify-center w-full py-3 px-4 rounded-xl bg-gray-900 text-white font-semibold text-sm hover:bg-red-600 transition-colors"
             onClick={closeDrawer}
           >
             Proceed to Checkout
