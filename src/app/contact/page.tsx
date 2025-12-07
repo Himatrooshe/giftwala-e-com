@@ -114,8 +114,7 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
-                      style={{ focusRingColor: '#1588D7' }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-[#1588D7] transition-all duration-200"
                       placeholder="Your full name"
                     />
                   </div>
@@ -130,8 +129,7 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
-                      style={{ focusRingColor: '#1588D7' }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-[#1588D7] transition-all duration-200"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -148,8 +146,7 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
-                      style={{ focusRingColor: '#1588D7' }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-[#1588D7] transition-all duration-200"
                       placeholder="+880 1345903907"
                     />
                   </div>
@@ -163,8 +160,7 @@ export default function Contact() {
                       required
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
-                      style={{ focusRingColor: '#1588D7' }}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-[#1588D7] transition-all duration-200"
                     >
                       <option value="">Select a subject</option>
                       <option value="product-inquiry">Product Inquiry</option>
@@ -188,8 +184,7 @@ export default function Contact() {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200 resize-none"
-                    style={{ focusRingColor: '#1588D7' }}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-[#1588D7] transition-all duration-200 resize-none"
                     placeholder="Tell us how we can help you..."
                   />
                 </div>
