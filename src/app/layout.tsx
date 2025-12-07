@@ -98,7 +98,7 @@ export const metadata: Metadata = {
     },
   },
   other: {
-    'og:phone_number': '+880 1345903907',
+    'og:phone_number': '+880 1789571784',
     'og:email': 'support@giftwalabd.com',
     'og:locality': 'Dhaka',
     'og:region': 'Dhaka',

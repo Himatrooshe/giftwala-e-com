@@ -65,7 +65,7 @@ export default function Home() {
             },
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+880-1345903907',
+              telephone: '+880-1789571784',
               contactType: 'Customer Service',
               areaServed: {
                 '@type': 'Country',
@@ -92,7 +92,7 @@ export default function Home() {
             name: 'Giftwala Bangladesh',
             image: 'https://www.giftwalabd.com/og-image.jpg',
             url: 'https://www.giftwalabd.com',
-            telephone: '+880-1345903907',
+            telephone: '+880-1789571784',
             priceRange: '৳৳',
             address: {
               '@type': 'PostalAddress',
@@ -169,7 +169,7 @@ export default function Home() {
             image: 'https://www.giftwalabd.com/og-image.jpg',
             '@id': 'https://www.giftwalabd.com',
             url: 'https://www.giftwalabd.com',
-            telephone: '+880-1345903907',
+            telephone: '+880-1789571784',
             priceRange: '৳৳',
             address: {
               '@type': 'PostalAddress',

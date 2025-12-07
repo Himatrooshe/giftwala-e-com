@@ -12,7 +12,7 @@ export default function FloatingCTA() {
     setIsOpen(!isOpen);
   };
 
-  const phoneNumber = '01345903907';
+  const phoneNumber = '01789571784';
   const whatsappMessageLink = 'https://wa.me/message/QB5ZDFKU4NQBL1';
   const email = 'support@giftwalabd.com';
 

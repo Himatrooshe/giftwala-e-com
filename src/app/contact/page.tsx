@@ -147,7 +147,7 @@ export default function Contact() {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 focus:ring-[#1588D7] transition-all duration-200"
-                      placeholder="+880 1345903907"
+                      placeholder="+880 1789571784"
                     />
                   </div>
                   <div>
@@ -256,7 +256,7 @@ export default function Contact() {
                     <h3 className="font-semibold text-gray-900 mb-1 text-lg">Phone</h3>
                     <p className="text-gray-600 mb-2">Call us directly</p>
                     <a 
-                      href="tel:+8801345903907" 
+                      href="tel:+8801789571784" 
                       className="font-semibold transition-colors"
                       style={{ color: '#1588D7' }}
                       onMouseEnter={(e) => {
@@ -266,7 +266,7 @@ export default function Contact() {
                         e.currentTarget.style.color = '#1588D7';
                       }}
                     >
-                      +880 1345903907
+                      +880 1789571784
                     </a>
                   </div>
                 </div>

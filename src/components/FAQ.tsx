@@ -28,7 +28,7 @@ const faqs = [
   },
   {
     question: 'Can I cancel or modify my order?',
-    answer: 'You can cancel or modify your order within 2 hours of placing it. Please contact us immediately via WhatsApp at +880 1345903907 or call us. Once the order is shipped, it cannot be cancelled.',
+    answer: 'You can cancel or modify your order within 2 hours of placing it. Please contact us immediately via WhatsApp at +880 1789571784 or call us. Once the order is shipped, it cannot be cancelled.',
   },
   {
     question: 'What is your return policy?',

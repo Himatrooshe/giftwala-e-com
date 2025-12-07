@@ -69,7 +69,7 @@ export default function ThankYouContact() {
               </div>
               <div className="flex items-center justify-center gap-3">
                 <Phone className="w-5 h-5 text-red-600" />
-                <span className="text-gray-700">+880 1345903907</span>
+                <span className="text-gray-700">+880 1789571784</span>
               </div>
               <p className="text-sm text-gray-600 text-center">Our team responds Sunday–Thursday, 9:00 AM – 6:00 PM.</p>
             </div>

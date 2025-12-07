@@ -223,7 +223,7 @@ export default function Header() {
         )}
 
         <nav className="w-full relative">
-          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20 lg:h-24 relative">
               
               {/* Mobile: Hamburger Menu Button */}
@@ -239,26 +239,24 @@ export default function Header() {
                 )}
               </button>
 
-              {/* Logo - Floating Design */}
+              {/* Logo - Aligned with Hero Section (Left Side on Desktop) */}
               <a 
                 href="#home" 
                 onClick={handleLogoClick}
-                className="absolute left-1/2 transform -translate-x-1/2 lg:relative lg:left-0 lg:transform-none z-20 group cursor-pointer"
+                className="absolute left-1/2 transform -translate-x-1/2 md:left-4 md:transform-none lg:left-6 xl:left-8 z-30 group cursor-pointer flex-shrink-0"
               >
                 <div className="relative">
-                  {/* Glow effect on hover */}
-                  
                   {/* Logo container with glassmorphism */}
-                  <div className="relative  transition-all duration-300 group-hover:scale-105">
+                  <div className="relative transition-all duration-300 group-hover:scale-105">
                     <Image
                       src="https://res.cloudinary.com/dufzkjd0c/image/upload/v1764877604/Final_es4mgn.png"
                       alt="Giftwala Logo"
-                      width={140}
-                      height={56} 
-                      className="h-8 sm:h-10 lg:h-12 w-auto"
+                      width={160}
+                      height={64} 
+                      className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto"
                       priority
                       quality={90}
-                      sizes="(max-width: 640px) 120px, (max-width: 1024px) 140px, 160px"
+                      sizes="(max-width: 640px) 140px, (max-width: 768px) 160px, 180px"
                     />
                   </div>
                 </div>

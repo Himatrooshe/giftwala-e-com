@@ -199,7 +199,7 @@ export default function ThankYouOrder() {
             </h2>
             <div className="text-center space-y-2">
               <p className="text-gray-700">
-                Call us at <strong>+880  1345903907</strong> for any questions about your order.
+                Call us at <strong>+880 1789571784</strong> for any questions about your order.
               </p>
               <p className="text-sm text-gray-600">
                 Our customer service team is available 9 AM - 6 PM, Sunday to Thursday.
@@ -229,7 +229,7 @@ export default function ThankYouOrder() {
               View Products
             </Link>
             <a
-              href="tel:+880 1345903907"
+              href="tel:+8801789571784"
               className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
             >
               <Phone className="w-4 h-4" />
