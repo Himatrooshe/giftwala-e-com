@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star, ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import type { MouseEvent } from 'react';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
@@ -20,129 +19,123 @@ export default function ProductCard({ product }: ProductCardProps) {
     addToCart(product);
   };
 
+  // Generate a consistent gradient based on product ID
+  const imageIndex = parseInt(product.id.slice(-1)) || 0;
+  const isPrimaryColor = imageIndex % 2 === 0;
+
   return (
     <Link href={`/products/${product.id}`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        whileHover={{ y: -3 }}
+        whileHover={{ y: -8 }}
         transition={{ duration: 0.3 }}
-        className="group bg-white rounded-lg border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col max-w-[260px] mx-auto"
+        className="group bg-white rounded-2xl border border-gray-200 hover:border-transparent hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer h-full flex flex-col max-w-[280px] mx-auto relative will-change-transform"
+        style={{
+          boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(21, 136, 215, 0.1), 0 10px 10px -5px rgba(15, 183, 177, 0.04)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = '0 1px 3px 0 rgba(0, 0, 0, 0.1)';
+        }}
       >
-        {/* Product Image */}
-        <div className="relative h-44 bg-gray-50 overflow-hidden flex items-center justify-center px-3">
-          {/* Badge */}
-          {product.badge && (
-            <div className="absolute top-2 left-2 z-10">
-              <span className={`text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm ${
-                product.badge === 'BEST SELLER' 
-                  ? 'bg-gradient-to-r from-orange-500 to-red-600'
-                  : product.badge === 'NEW ARRIVAL'
-                  ? 'bg-gradient-to-r from-green-500 to-emerald-600'
-                  : product.badge === 'TRENDING'
-                  ? 'bg-gradient-to-r from-pink-500 to-rose-600'
-                  : product.badge === 'COMING SOON'
-                  ? 'bg-gradient-to-r from-purple-500 to-indigo-600'
-                  : 'bg-red-600'
-              }`}>
-                {product.badge}
-              </span>
-            </div>
-          )}
+        {/* Hover Gradient Border Effect */}
+        <div 
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{
+            background: 'linear-gradient(135deg, rgba(21, 136, 215, 0.1), rgba(15, 183, 177, 0.1))',
+            padding: '1px',
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude'
+          }}
+        ></div>
 
-          {/* Stock Status - Only show if badge is not COMING SOON */}
-          {!product.inStock && product.badge !== 'COMING SOON' && (
-            <div className="absolute top-2 right-2 z-10">
-              <span className="bg-red-500 text-white px-2 py-0.5 rounded text-xs font-semibold shadow-sm">
-                Out of Stock
-              </span>
-            </div>
-          )}
-
-          {/* Product Image or Placeholder */}
-          <div className="relative w-full h-full flex items-center justify-center">
-            {product.images && product.images.length > 0 ? (
-              <Image
-                src={product.images[0]}
-                alt={product.name}
-                fill
-                className="object-contain group-hover:scale-105 transition-transform duration-500"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center text-center px-4">
-                <div className="w-16 h-16 rounded-full border border-dashed border-gray-300 flex items-center justify-center mb-3 text-sm font-semibold text-gray-500">
-                  Coming Soon
-                </div>
-                <p className="text-xs text-gray-500 font-medium">Premium wellness bundle launching soon</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Product Info */}
-        <div className="p-3 space-y-1.5 flex-1 flex flex-col">
-          {/* Title */}
-          <h3 className="text-[13px] font-semibold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug">
-            {product.name}
-          </h3>
-
-          {/* Rating */}
-          <div className="flex items-center space-x-1.5">
-            <div className="flex">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`${
-                    i < Math.floor(product.rating)
-                      ? 'text-yellow-400 fill-yellow-400'
-                      : 'text-gray-300'
-                  }`}
-                  size={12}
-                />
-              ))}
-            </div>
-            <span className="text-xs text-gray-500">
-              ({product.reviews})
+        {/* Coming Soon Image */}
+        <div className="relative h-48 sm:h-52 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex items-center justify-center">
+          {/* Coming Soon Badge */}
+          <div className="absolute top-3 right-3 z-10">
+            <span 
+              className="px-3 py-1 rounded-full text-xs font-semibold shadow-lg text-white"
+              style={{
+                background: 'linear-gradient(to right, #1588D7, #0FB7B1)'
+              }}
+            >
+              Coming Soon
             </span>
           </div>
 
-          {/* Price */}
-          <div className="flex items-start justify-between pt-1 flex-1">
-            <div className="flex flex-col leading-tight">
-              <span className="text-base font-bold text-gray-900">
-                ৳{product.price}
-              </span>
-              {product.originalPrice && (
-                <span className="text-[11px] text-gray-400 line-through">
-                  ৳{product.originalPrice}
-                </span>
-              )}
+          {/* Coming Soon Image - Gradient Background */}
+          <div 
+            className="relative w-full h-full flex items-center justify-center"
+            style={{
+              background: isPrimaryColor 
+                ? 'linear-gradient(135deg, rgba(21, 136, 215, 0.3), rgba(15, 183, 177, 0.2))'
+                : 'linear-gradient(135deg, rgba(15, 183, 177, 0.3), rgba(21, 136, 215, 0.2))'
+            }}
+          >
+            {/* Pattern Overlay */}
+            <div className="absolute inset-0 opacity-10" style={{
+              backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)'
+            }}></div>
+            {/* Coming Soon Text Overlay */}
+            <div className="relative z-10 text-center px-4">
+              <div className="text-4xl mb-2">📦</div>
+              <p className="text-sm font-semibold text-gray-700">Coming Soon</p>
             </div>
-            {product.originalPrice && (
-              <span className="bg-green-50 text-green-700 px-1.5 py-0.5 rounded text-[11px] font-medium whitespace-nowrap">
-                -{Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}%
-              </span>
-            )}
           </div>
 
-          {/* Add to Cart Button */}
+          {/* Hover Overlay Gradient */}
+          <div 
+            className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"
+            style={{
+              background: 'linear-gradient(135deg, #1588D7, #0FB7B1)'
+            }}
+          ></div>
+        </div>
+
+        {/* Product Info */}
+        <div className="p-4 sm:p-5 space-y-3 sm:space-y-4 flex-1 flex flex-col items-center justify-center">
+          {/* Coming Soon Text */}
+          <div className="text-center">
+            <h3 
+              className="text-base sm:text-lg lg:text-xl font-bold mb-2"
+              style={{
+                background: 'linear-gradient(135deg, #1588D7, #0FB7B1)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
+              Coming Soon
+            </h3>
+            <p className="text-sm text-gray-500">
+              This product will be available soon
+            </p>
+          </div>
+
+          {/* Order Now Button */}
           <button 
             onClick={handleAddToCart}
-            disabled={!product.inStock}
-            className={`w-full py-1.5 px-3 rounded-md font-medium text-xs uppercase tracking-wide transition-colors duration-300 flex items-center justify-center gap-1.5 ${
-              product.inStock 
-                ? 'bg-gray-900 text-white hover:bg-gray-800 cursor-pointer' 
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-            }`}
+            className="w-full py-2.5 px-4 rounded-xl font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 text-white cursor-pointer shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+            style={{
+              background: 'linear-gradient(to right, #1588D7, #0FB7B1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
+            }}
           >
-            <ShoppingCart size={14} />
-            <span>{product.inStock ? 'Add to Cart' : 'Unavailable'}</span>
+            <ShoppingCart size={16} />
+            <span>Order Now</span>
           </button>
         </div>
       </motion.div>
     </Link>
   );
 }
-

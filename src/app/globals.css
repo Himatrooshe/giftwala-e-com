@@ -31,12 +31,12 @@ html.lenis {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #01B6A7, #1086D2);
+  background: linear-gradient(135deg, #1588D7, #0FB7B1);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #019a8d, #0d6ba8);
+  background: linear-gradient(135deg, #0d6ba8, #0c9a94);
 }
 
 /* Base layer customizations */
@@ -81,21 +81,21 @@ html.lenis {
 @layer components {
   /* Custom button styles */
   .btn-primary {
-    background: linear-gradient(135deg, #01B6A7 0%, #1086D2 50%, #01B6A7 100%);
+    background: linear-gradient(135deg, #1588D7 0%, #0FB7B1 50%, #1588D7 100%);
     color: white;
     padding: 0.875rem 2rem;
     border-radius: 9999px;
     font-weight: 600;
     transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 15px -3px rgb(1 182 167 / 0.3), 0 4px 6px -2px rgb(1 182 167 / 0.1);
+    box-shadow: 0 10px 15px -3px rgb(21 136 215 / 0.3), 0 4px 6px -2px rgb(21 136 215 / 0.1);
     border: none;
     position: relative;
     overflow: hidden;
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, #019a8d 0%, #0d6ba8 50%, #019a8d 100%);
-    box-shadow: 0 20px 25px -5px rgb(1 182 167 / 0.4), 0 10px 10px -5px rgb(1 182 167 / 0.1);
+    background: linear-gradient(135deg, #0d6ba8 0%, #0c9a94 50%, #0d6ba8 100%);
+    box-shadow: 0 20px 25px -5px rgb(21 136 215 / 0.4), 0 10px 10px -5px rgb(21 136 215 / 0.1);
     transform: translateY(-1px);
   }
 
@@ -168,7 +168,7 @@ html.lenis {
     background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
-    background-image: linear-gradient(to right, #01B6A7, #1086D2, #01B6A7);
+    background-image: linear-gradient(to right, #1588D7, #0FB7B1, #1588D7);
   }
 
   /* Enhanced glassmorphism effect */
@@ -192,9 +192,9 @@ html.lenis {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.03) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 80%, rgba(21, 136, 215, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(15, 183, 177, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(21, 136, 215, 0.03) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -246,12 +246,36 @@ html.lenis {
       opacity: 1;
     }
   }
+
+  /* Performance optimizations */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Animation delays for pulse effects */
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-700 {
+    animation-delay: 700ms;
+  }
 }
 
 /* Custom focus styles for accessibility */
 *:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px white, 0 0 0 4px #01B6A7;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #1588D7;
 }
 
 /* Image optimization */
@@ -303,6 +327,20 @@ input[type='number'] {
   }
 }
 
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  /* Reduce blur effects on mobile for better performance */
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Optimize transforms */
+  * {
+    transform: translateZ(0);
+  }
+}
 
 /* GSAP Animation Classes */
 .animate-fade-up {

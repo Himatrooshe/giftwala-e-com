@@ -23,6 +23,8 @@ export default function Footer() {
                 width={180}
                 height={50}
                 className="h-12 w-auto"
+                loading="lazy"
+                quality={90}
               />
             </div>
             <p className="text-gray-600 leading-relaxed mb-6">

@@ -75,10 +75,10 @@ export default function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full p-6 rounded-lg transition-all duration-300 text-left hover:scale-[1.01]"
+                className="w-full p-4 sm:p-6 rounded-lg transition-all duration-300 text-left hover:scale-[1.01] bg-gray-50 hover:bg-gray-100"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900 pr-8">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 pr-8">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0">
@@ -99,7 +99,7 @@ export default function FAQ() {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-gray-900 leading-relaxed mt-4 pt-4">
+                      <p className="text-sm sm:text-base text-gray-900 leading-relaxed mt-4 pt-4">
                         {faq.answer}
                       </p>
                     </motion.div>

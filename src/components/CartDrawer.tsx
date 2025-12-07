@@ -20,7 +20,7 @@ export default function CartDrawer() {
 
       {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl z-[100] transition-transform duration-300 flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-full max-w-sm sm:max-w-md bg-white shadow-2xl z-[100] transition-transform duration-300 flex flex-col ${
           isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -47,19 +47,21 @@ export default function CartDrawer() {
             </div>
           ) : (
             items.map((item) => (
-              <div key={item.id} className="flex gap-4 border border-gray-100 rounded-2xl p-4">
-                <div className="relative w-24 h-24 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center">
+              <div key={item.id} className="flex gap-3 sm:gap-4 border border-gray-100 rounded-xl sm:rounded-2xl p-3 sm:p-4">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0">
                   <Image
                     src={item.images?.[0] || '/main-pro.jpeg'}
                     alt={item.name}
                     fill
                     className="object-contain"
+                    loading="lazy"
+                    sizes="(max-width: 640px) 80px, 96px"
                   />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-sm font-semibold text-gray-900">{item.name}</h3>
+                      <h3 className="text-xs sm:text-sm font-semibold text-gray-900 line-clamp-2">{item.name}</h3>
                       <p className="text-xs text-gray-500 mt-1">Quantity: {item.quantity}</p>
                     </div>
                     <button

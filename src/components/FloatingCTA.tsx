@@ -26,7 +26,16 @@ export default function FloatingCTA() {
           {/* Call Button */}
           <a
             href={`tel:${phoneNumber}`}
-            className="bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:from-red-700 hover:via-red-600 hover:to-amber-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-2 sm:gap-3 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+            className="text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-lg flex items-center gap-2 sm:gap-3 transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+            style={{ 
+              background: 'linear-gradient(to right, #1588D7, #0FB7B1)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
+            }}
           >
             <Phone size={16} className="sm:w-5 sm:h-5" />
             <span className="hidden sm:inline">Call Now</span>
@@ -93,17 +102,29 @@ export default function FloatingCTA() {
       {/* Main Floating Button */}
       <button
         onClick={toggleMenu}
-        className="relative bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:from-red-700 hover:via-red-600 hover:to-amber-600 text-white rounded-full shadow-lg hover:shadow-xl flex items-center gap-3 px-4 py-3 transition-all duration-300 transform hover:scale-105 cursor-pointer pointer-events-auto min-w-[120px] sm:min-w-[140px]"
+        className="relative text-white rounded-full shadow-lg hover:shadow-xl flex items-center gap-3 px-4 py-3 transition-all duration-300 transform hover:scale-105 cursor-pointer pointer-events-auto min-w-[120px] sm:min-w-[140px]"
+        style={{ 
+          background: 'linear-gradient(to right, #1588D7, #0FB7B1)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
+        }}
         type="button"
       >
         {/* Phone Icon in White Circle */}
-        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center border-2 border-red-500">
-          <Phone size={16} className="sm:w-5 sm:h-5 text-red-500" />
+        <div 
+          className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center border-2"
+          style={{ borderColor: '#1588D7' }}
+        >
+          <Phone size={16} className="sm:w-5 sm:h-5" style={{ color: '#1588D7' }} />
         </div>
         
-        {/* Contact Text */}
+        {/* Support Text */}
         <span className="font-bold text-sm sm:text-base text-white">
-          Contact
+          Get Help
         </span>
         
         {/* Close Icon (when menu is open) */}
@@ -114,7 +135,10 @@ export default function FloatingCTA() {
 
       {/* Pulse Animation Background */}
       {!isOpen && (
-        <div className="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-amber-500 rounded-full animate-ping opacity-20 pointer-events-none"></div>
+        <div 
+          className="absolute inset-0 rounded-full animate-ping opacity-20 pointer-events-none"
+          style={{ background: 'linear-gradient(to right, #1588D7, #0FB7B1)' }}
+        ></div>
       )}
     </div>
   );

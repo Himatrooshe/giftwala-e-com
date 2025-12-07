@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Clock } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Clock, MessageCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -31,29 +31,16 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      console.log('Submitting contact data:', formData);
-      
       const response = await fetch('https://script.google.com/macros/s/AKfycbxySwJfivbBwNA3nk9EoL5ZLMd0c5Ym3UtveoN2q9VuAQWI5gS8PeuznwcWiMoHXY36/exec?sheet=contact-us', {
         method: 'POST',
-        mode: 'no-cors', // Add this to handle CORS issues
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
-
-      // Since we're using no-cors, we can't read the response
-      // But we can assume success if no error was thrown
-      // Redirect to thank you page instead of showing alert
       router.push('/thank-you-contact');
     } catch (error) {
       console.error('Error submitting form:', error);
-      console.error('Error details:', {
-        message: error instanceof Error ? error.message : 'Unknown error',
-        stack: error instanceof Error ? error.stack : undefined,
-        formData: formData
-      });
       alert('Something went wrong. Please try again later or contact us directly.');
     } finally {
       setIsSubmitting(false);
@@ -65,19 +52,35 @@ export default function Contact() {
       <Header />
       
       {/* Hero Section */}
-      <section className="pt-20 sm:pt-24 pb-12 sm:pb-16 bg-gradient-to-br from-red-50 to-white">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 sm:pt-28 pb-12 sm:pb-16 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-5"
+          style={{
+            background: 'radial-gradient(circle at 20% 30%, rgba(21, 136, 215, 0.1), transparent 50%), radial-gradient(circle at 80% 70%, rgba(15, 183, 177, 0.1), transparent 50%)'
+          }}
+        ></div>
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6">
-              Contact <span className="bg-gradient-to-r from-red-600 to-amber-600 bg-clip-text text-transparent">Us</span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 sm:mb-6">
+              Get in{' '}
+              <span 
+                style={{
+                  background: 'linear-gradient(135deg, #1588D7, #0FB7B1)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                Touch
+              </span>
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Get in touch with our team. We're here to help you with any questions about our products or support you need.
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              We're here to help! Reach out to us through any of the channels below, and we'll get back to you as soon as possible.
             </p>
           </motion.div>
         </div>
@@ -85,23 +88,23 @@ export default function Contact() {
 
       {/* Contact Section */}
       <section className="py-12 sm:py-16 lg:py-20">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 sm:p-8 lg:p-10"
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">
                 Send us a Message
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                       Full Name *
                     </label>
                     <input
@@ -111,12 +114,13 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
+                      style={{ focusRingColor: '#1588D7' }}
                       placeholder="Your full name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                       Email Address *
                     </label>
                     <input
@@ -126,7 +130,8 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
+                      style={{ focusRingColor: '#1588D7' }}
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -134,7 +139,7 @@ export default function Contact() {
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                       Phone Number
                     </label>
                     <input
@@ -143,12 +148,13 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-                    placeholder="+880 1345903907"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
+                      style={{ focusRingColor: '#1588D7' }}
+                      placeholder="+880 1345903907"
                     />
                   </div>
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-slate-700 mb-2">
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                       Subject *
                     </label>
                     <select
@@ -157,7 +163,8 @@ export default function Contact() {
                       required
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200"
+                      style={{ focusRingColor: '#1588D7' }}
                     >
                       <option value="">Select a subject</option>
                       <option value="product-inquiry">Product Inquiry</option>
@@ -171,7 +178,7 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Message *
                   </label>
                   <textarea
@@ -181,7 +188,8 @@ export default function Contact() {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-offset-2 transition-all duration-200 resize-none"
+                    style={{ focusRingColor: '#1588D7' }}
                     placeholder="Tell us how we can help you..."
                   />
                 </div>
@@ -189,7 +197,20 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gray-900 text-white px-8 py-4 rounded-md hover:bg-gray-800 transition-all duration-300 font-medium text-sm uppercase tracking-wide disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-3"
+                  className="w-full py-4 px-8 font-semibold text-base uppercase tracking-wide text-white transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                  style={{
+                    background: 'linear-gradient(to right, #1588D7, #0FB7B1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isSubmitting) {
+                      e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isSubmitting) {
+                      e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
+                    }
+                  }}
                 >
                   {isSubmitting ? (
                     <>
@@ -204,71 +225,122 @@ export default function Contact() {
                   )}
                 </button>
               </form>
-              </motion.div>
-            </div>
+            </motion.div>
 
             {/* Contact Information */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="space-y-8"
+              className="space-y-6"
             >
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-8">
-                  Get in Touch
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  Contact Information
                 </h2>
-                <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                  We're here to help! Reach out to us through any of the channels below, and we'll get back to you as soon as possible.
+                <p className="text-lg text-gray-600 leading-relaxed">
+                  Choose the most convenient way to reach us. We're available to assist you with any questions or concerns.
                 </p>
               </div>
 
               {/* Contact Details */}
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
-                    <Phone className="text-gray-900" size={20} />
+              <div className="space-y-4">
+                <div 
+                  className="flex items-start gap-4 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(21, 136, 215, 0.05), rgba(15, 183, 177, 0.05))'
+                  }}
+                >
+                  <div 
+                    className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
+                    style={{ background: 'linear-gradient(135deg, #1588D7, #0FB7B1)' }}
+                  >
+                    <Phone className="text-white" size={22} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Phone</h3>
-                    <p className="text-slate-600 mb-2">Call us directly</p>
-                    <a href="tel:+8801345903907" className="text-red-600 font-medium hover:text-red-700 transition-colors">
+                    <h3 className="font-semibold text-gray-900 mb-1 text-lg">Phone</h3>
+                    <p className="text-gray-600 mb-2">Call us directly</p>
+                    <a 
+                      href="tel:+8801345903907" 
+                      className="font-semibold transition-colors"
+                      style={{ color: '#1588D7' }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#0FB7B1';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = '#1588D7';
+                      }}
+                    >
                       +880 1345903907
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
-                    <Mail className="text-gray-900" size={20} />
+                <div 
+                  className="flex items-start gap-4 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(21, 136, 215, 0.05), rgba(15, 183, 177, 0.05))'
+                  }}
+                >
+                  <div 
+                    className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
+                    style={{ background: 'linear-gradient(135deg, #1588D7, #0FB7B1)' }}
+                  >
+                    <Mail className="text-white" size={22} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
-                    <p className="text-slate-600 mb-2">Send us an email</p>
-                    <a href="mailto:support@giftwalabd.com" className="text-red-600 font-medium hover:text-red-700 transition-colors">
-                    support@giftwalabd.com
+                    <h3 className="font-semibold text-gray-900 mb-1 text-lg">Email</h3>
+                    <p className="text-gray-600 mb-2">Send us an email</p>
+                    <a 
+                      href="mailto:support@giftwalabd.com" 
+                      className="font-semibold transition-colors"
+                      style={{ color: '#1588D7' }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.color = '#0FB7B1';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.color = '#1588D7';
+                      }}
+                    >
+                      support@giftwalabd.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
-                    <MapPin className="text-gray-900" size={20} />
+                <div 
+                  className="flex items-start gap-4 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(21, 136, 215, 0.05), rgba(15, 183, 177, 0.05))'
+                  }}
+                >
+                  <div 
+                    className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
+                    style={{ background: 'linear-gradient(135deg, #1588D7, #0FB7B1)' }}
+                  >
+                    <MapPin className="text-white" size={22} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Address</h3>
-                    <p className="text-slate-700">Dhaka, Bangladesh</p>
+                    <h3 className="font-semibold text-gray-900 mb-1 text-lg">Address</h3>
+                    <p className="text-gray-700">Dhaka, Bangladesh</p>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4 p-6 bg-white border border-gray-200 rounded-xl">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E4E5E8' }}>
-                    <Clock className="text-gray-900" size={20} />
+                <div 
+                  className="flex items-start gap-4 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(21, 136, 215, 0.05), rgba(15, 183, 177, 0.05))'
+                  }}
+                >
+                  <div 
+                    className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md"
+                    style={{ background: 'linear-gradient(135deg, #1588D7, #0FB7B1)' }}
+                  >
+                    <Clock className="text-white" size={22} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-slate-900 mb-1">Business Hours</h3>
-                    <p className="text-slate-600 mb-2">When you can reach us</p>
-                    <div className="text-slate-700 space-y-1">
+                    <h3 className="font-semibold text-gray-900 mb-1 text-lg">Business Hours</h3>
+                    <p className="text-gray-600 mb-2">When you can reach us</p>
+                    <div className="text-gray-700 space-y-1">
                       <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
                       <p>Saturday: 10:00 AM - 4:00 PM</p>
                       <p>Sunday: Closed</p>

@@ -18,7 +18,19 @@ export default function CTA() {
 
           {/* CTA Button */}
           <div className="mb-2 sm:mb-4">
-            <a href="/checkout" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium uppercase tracking-wide bg-gradient-to-r from-red-600 via-red-500 to-amber-500 text-white hover:from-red-700 hover:via-red-600 hover:to-amber-600 transition-all duration-300 rounded-md group shadow-lg hover:shadow-xl">
+            <a 
+              href="/checkout" 
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm font-medium uppercase tracking-wide text-white transition-all duration-300 rounded-md group shadow-lg hover:shadow-xl"
+              style={{
+                background: 'linear-gradient(to right, #1588D7, #0FB7B1)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
+              }}
+            >
               <span>Order Now</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
             </a>
