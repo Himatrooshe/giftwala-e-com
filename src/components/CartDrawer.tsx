@@ -8,21 +8,19 @@ import { useCart } from '@/context/CartContext';
 export default function CartDrawer() {
   const { items, isDrawerOpen, closeDrawer, removeFromCart, totalQuantity } = useCart();
 
+  if (!isDrawerOpen) return null;
+
   return (
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-[99] ${
-          isDrawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 z-[99] opacity-100 pointer-events-auto"
         onClick={closeDrawer}
       />
 
       {/* Drawer */}
       <aside
-        className={`fixed top-0 right-0 h-full w-full max-w-sm sm:max-w-md bg-white shadow-2xl z-[100] transition-transform duration-300 flex flex-col ${
-          isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className="fixed top-0 right-0 h-full w-[85vw] max-w-sm sm:max-w-md bg-white shadow-2xl z-[100] transition-transform duration-300 flex flex-col translate-x-0"
       >
         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
           <div>

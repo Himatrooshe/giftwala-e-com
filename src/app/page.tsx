@@ -4,7 +4,7 @@ import Categories from '@/components/Categories';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import NewArrivals from '@/components/NewArrivals';
 import WhyChooseUs from '@/components/WhyChooseUs';
-import Testimonials from '@/components/Testimonials';
+import Reviews from '@/components/Reviews';
 import FAQ from '@/components/FAQ';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
@@ -32,8 +32,8 @@ export default function Home() {
       {/* Why Choose Giftwala - Trust indicators */}
       <WhyChooseUs />
 
-      {/* Customer Testimonials - Social proof */}
-      <Testimonials />
+      {/* Customer Reviews - Social proof */}
+      <Reviews />
 
       {/* FAQ Section - Common questions and answers */}
       <FAQ />

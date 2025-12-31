@@ -8,38 +8,6 @@ import { videoReviews } from '../../data/reviewVideos';
 import { fbReviews } from '../../data/textReviews';
 import { ChevronLeft, ChevronRight, MoreHorizontal, ThumbsUp, MessageSquare, Star } from 'lucide-react';
 
-type TextReview = {
-  id: string;
-  name: string;
-  rating: number; // 1-5
-  content: string;
-};
-
-// Video reviews removed; this page now shows text reviews only
-
-const textReviews: TextReview[] = [
-  {
-    id: 't1',
-    name: 'Ayesha K.',
-    rating: 5,
-    content:
-      'It really helped with congestion. Easy to use and clean. Highly recommended!'
-  },
-  {
-    id: 't2',
-    name: 'Rakib H.',
-    rating: 4,
-    content:
-      'Solid build quality. Packaging was good and delivery was quick.'
-  },
-  {
-    id: 't3',
-    name: 'Nadia S.',
-    rating: 5,
-    content: 'Amazing experience. Customer support is responsive on WhatsApp.'
-  }
-];
-
 export default function ReviewsPage() {
   const [currentVideo, setCurrentVideo] = useState(0);
   const total = videoReviews.length;
@@ -55,9 +23,9 @@ export default function ReviewsPage() {
       `</svg>`;
   };
   return (
-    <section className="py-0 bg-white">
+    <section className="py-0 bg-gradient-to-b from-white to-gray-50 min-h-screen">
       <Header />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-12 sm:py-16 lg:py-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,11 +34,19 @@ export default function ReviewsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+          <h1 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4"
+            style={{
+              background: 'linear-gradient(135deg, #1588D7, #0FB7B1)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}
+          >
             Customer Reviews
           </h1>
-          <p className="text-base sm:text-lg text-gray-900 mt-3">
-            feedback from customers across Bangladesh
+          <p className="text-base sm:text-lg text-gray-600 mt-3">
+            Real feedback from customers across Bangladesh
           </p>
         </motion.div>
 
@@ -142,7 +118,7 @@ export default function ReviewsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: idx * 0.02 }}
-                className="rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 p-4"
+                className="rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-all duration-300 p-5 sm:p-6"
               >
                 {/* Header */}
                 <div className="flex items-start justify-between mb-3">
@@ -175,11 +151,22 @@ export default function ReviewsPage() {
                         </span>
                       </p>
                       <p className="text-[13px] text-gray-900 font-semibold">Flash Shop</p>
-                      <p className="text-[12px] text-gray-600 flex items-center gap-1">
-                        {r.date}
-                        <span className="text-gray-400">·</span>
-                        <img src="/globe.svg" alt="Public" className="w-3 h-3 opacity-70" />
-                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star
+                              key={i}
+                              size={12}
+                              className="fill-yellow-400 text-yellow-400"
+                            />
+                          ))}
+                        </div>
+                        <p className="text-[12px] text-gray-600 flex items-center gap-1">
+                          {r.date}
+                          <span className="text-gray-400">·</span>
+                          <img src="/globe.svg" alt="Public" className="w-3 h-3 opacity-70" />
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <button type="button" className="p-1 text-gray-500 hover:text-gray-700">
