@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, ShoppingCart, MapPin, User, CreditCard, Plus, Minus, PackageX } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import { getProductPrice } from '@/lib/pricing';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -25,10 +26,29 @@ export default function CheckoutPage() {
   const selectedItems = cartItems.filter((item) => item.quantity > 0);
   const hasItems = cartItems.length > 0;
 
-  const subtotal = selectedItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  // Group items by product ID to handle special pricing correctly
+  const groupedItems = useMemo(() => {
+    const grouped = new Map<string, { product: typeof cartItems[0], totalQuantity: number }>();
+    
+    selectedItems.forEach(item => {
+      const existing = grouped.get(item.id);
+      if (existing) {
+        existing.totalQuantity += item.quantity;
+      } else {
+        grouped.set(item.id, { product: item, totalQuantity: item.quantity });
+      }
+    });
+    
+    return Array.from(grouped.values());
+  }, [selectedItems]);
+
+  // Calculate subtotal with special pricing for gear-lever-sleeve
+  const subtotal = useMemo(() => {
+    return groupedItems.reduce((total, { product, totalQuantity }) => {
+      const itemPrice = getProductPrice(product.id, totalQuantity, product.price);
+      return total + itemPrice;
+    }, 0);
+  }, [groupedItems]);
 
   const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
   const totalPrice = subtotal + (subtotal > 0 ? deliveryCost : 0);
@@ -61,15 +81,20 @@ export default function CheckoutPage() {
     try {
       console.log('Submitting order data:', formData);
       
-      // Prepare the order data
+      // Prepare the order data with grouped items and correct pricing
+      const orderItems = groupedItems.map(({ product, totalQuantity }) => ({
+        id: product.id,
+        name: product.name,
+        price: getProductPrice(product.id, totalQuantity, product.price),
+        unitPrice: product.id === 'gear-lever-sleeve' 
+          ? getProductPrice(product.id, totalQuantity, product.price) / totalQuantity 
+          : product.price,
+        quantity: totalQuantity,
+      }));
+
       const orderData = {
         ...formData,
-        items: selectedItems.map((item) => ({
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          quantity: item.quantity,
-        })),
+        items: orderItems,
         productPrice: subtotal,
         subtotal,
         deliveryCost,
@@ -169,14 +194,15 @@ export default function CheckoutPage() {
 
               {hasItems ? (
                 <div className="space-y-4">
-                  {cartItems.map((item) => {
+                  {groupedItems.map(({ product: item, totalQuantity }) => {
                     const isOutOfStock = item.stock === 0;
-                    const remaining = Math.max(0, item.stock - item.quantity);
+                    const isSpecialPricing = item.id === 'gear-lever-sleeve';
+                    const itemTotalPrice = getProductPrice(item.id, totalQuantity, item.price);
                     return (
                       <div
                         key={item.id}
                         className={`p-4 rounded-2xl border transition-colors ${
-                          item.quantity > 0 ? 'border-gray-900 bg-white' : 'border-gray-200 bg-white'
+                          totalQuantity > 0 ? 'border-gray-900 bg-white' : 'border-gray-200 bg-white'
                         }`}
                       >
                         <div className="flex gap-4">
@@ -199,9 +225,22 @@ export default function CheckoutPage() {
                                 <p className="text-xs sm:text-sm text-gray-600">{item.tagline}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-lg font-bold text-gray-900">৳{item.price}</p>
-                                {item.originalPrice && (
-                                  <p className="text-xs text-gray-400 line-through">৳{item.originalPrice}</p>
+                                {isSpecialPricing ? (
+                                  <div>
+                                    <p className="text-lg font-bold text-gray-900">৳{itemTotalPrice}</p>
+                                    {totalQuantity > 1 && (
+                                      <p className="text-xs text-gray-500">
+                                        ৳{Math.round(itemTotalPrice / totalQuantity)} per piece
+                                      </p>
+                                    )}
+                                  </div>
+                                ) : (
+                                  <>
+                                    <p className="text-lg font-bold text-gray-900">৳{item.price}</p>
+                                    {item.originalPrice && (
+                                      <p className="text-xs text-gray-400 line-through">৳{item.originalPrice}</p>
+                                    )}
+                                  </>
                                 )}
                               </div>
                             </div>
@@ -216,33 +255,46 @@ export default function CheckoutPage() {
                                 )}
                               </div>
                               <div className="flex items-center gap-1 text-gray-600">
-                                Selected: {item.quantity} {item.quantity === 1 ? 'pc' : 'pcs'}
+                                Selected: {totalQuantity} {totalQuantity === 1 ? 'pc' : 'pcs'}
                               </div>
                             </div>
                             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
                               <div className="flex items-center gap-2">
                                 <button
                                   type="button"
-                                  onClick={() => handleQuantityChange(item.id, -1)}
-                                  disabled={item.quantity <= 0}
+                                  onClick={() => {
+                                    const target = cartItems.find((i) => i.id === item.id);
+                                    if (target) updateQuantity(item.id, totalQuantity - 1);
+                                  }}
+                                  disabled={totalQuantity <= 1}
                                   className="p-2 rounded-full border border-gray-300 text-gray-700 disabled:opacity-40"
                                 >
                                   <Minus size={14} />
                                 </button>
-                                <span className="w-8 text-center font-semibold text-gray-900">{item.quantity}</span>
+                                <span className="w-8 text-center font-semibold text-gray-900">{totalQuantity}</span>
                                 <button
                                   type="button"
-                                  onClick={() => handleQuantityChange(item.id, 1)}
-                                  disabled={item.quantity >= item.stock}
+                                  onClick={() => {
+                                    const target = cartItems.find((i) => i.id === item.id);
+                                    if (target) updateQuantity(item.id, totalQuantity + 1);
+                                  }}
+                                  disabled={totalQuantity >= item.stock}
                                   className="p-2 rounded-full border border-gray-300 text-gray-700 disabled:opacity-40"
                                 >
                                   <Plus size={14} />
                                 </button>
                               </div>
-                              {item.quantity > 0 && (
-                                <p className="text-xs text-gray-500">
-                                  {remaining === 0 ? 'All selected' : `${remaining} left in stock`}
-                                </p>
+                              {totalQuantity > 0 && (
+                                <div className="flex flex-col items-end gap-1">
+                                  <p className="text-xs text-gray-500">
+                                    {item.stock - totalQuantity === 0 ? 'All selected' : `${item.stock - totalQuantity} left in stock`}
+                                  </p>
+                                  {isSpecialPricing && totalQuantity >= 2 && (
+                                    <p className="text-xs text-green-600 font-semibold">
+                                      {totalQuantity === 2 ? 'Combo Deal!' : 'Best Value!'}
+                                    </p>
+                                  )}
+                                </div>
                               )}
                             </div>
                           </div>

@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import type { Product } from '@/data/products';
+import { getProductPrice, getProductUnitPrice } from '@/lib/pricing';
 
 interface CartItem extends Product {
   quantity: number;
