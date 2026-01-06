@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, ShoppingCart, MapPin, User, CreditCard, Plus, Minus, PackageX } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
-import { getProductPrice } from '@/lib/pricing';
+import { getProductPrice, hasSpecialPricing } from '@/lib/pricing';
+import { trackInitiateCheckout, trackPurchase } from '@/lib/facebook-pixel';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const insideDhakaDelivery = 80;
-  const outsideDhakaDelivery = 150;
+  const outsideDhakaDelivery = 120;
 
   const selectedItems = cartItems.filter((item) => item.quantity > 0);
   const hasItems = cartItems.length > 0;
@@ -42,7 +43,7 @@ export default function CheckoutPage() {
     return Array.from(grouped.values());
   }, [selectedItems]);
 
-  // Calculate subtotal with special pricing for gear-lever-sleeve
+  // Calculate subtotal with special pricing (if configured for any products)
   const subtotal = useMemo(() => {
     return groupedItems.reduce((total, { product, totalQuantity }) => {
       const itemPrice = getProductPrice(product.id, totalQuantity, product.price);
@@ -52,6 +53,13 @@ export default function CheckoutPage() {
 
   const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
   const totalPrice = subtotal + (subtotal > 0 ? deliveryCost : 0);
+
+  // Track InitiateCheckout when user lands on checkout page with items
+  useEffect(() => {
+    if (subtotal > 0 && hasItems) {
+      trackInitiateCheckout(totalPrice, 'BDT');
+    }
+  }, [subtotal, totalPrice, hasItems]);
 
   const handleQuantityChange = (productId: string, delta: number) => {
     const target = cartItems.find((item) => item.id === productId);
@@ -86,7 +94,7 @@ export default function CheckoutPage() {
         id: product.id,
         name: product.name,
         price: getProductPrice(product.id, totalQuantity, product.price),
-        unitPrice: product.id === 'gear-lever-sleeve' 
+        unitPrice: hasSpecialPricing(product.id)
           ? getProductPrice(product.id, totalQuantity, product.price) / totalQuantity 
           : product.price,
         quantity: totalQuantity,
@@ -104,11 +112,17 @@ export default function CheckoutPage() {
       console.log('Full order payload:', orderData);
       
       // Send to Google Apps Script and capture orderId
+      // The Apps Script will:
+      // 1. Save order to Google Sheets
+      // 2. Send confirmation email to customer (if email provided)
+      // 3. Send notification email to admin (tuhinbogra010@gmail.com)
       let createdOrderId: string | undefined = undefined;
       try {
         console.log('Sending order data to Google Sheets:', orderData);
 
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbwQCeUQEHO0RLHXnlS3N8UJJaci5-Jt1XGEUzOtR-c288HTVF0uQjAePyUXUncxzZzc/exec';
+        // Google Apps Script Web App URL for order processing
+        // The script saves orders to Google Sheets and sends confirmation emails
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbyBvV1y4BHQV9HfMPfuoBFJjtN5ITZiuGg-CCn3MZXp_kLqU7v2L2lWYbxoWVdD7kUX/exec';
 
         // Note: Apps Script should set CORS headers and accept text/plain to avoid preflight
         const res = await fetch(scriptUrl, {
@@ -133,6 +147,10 @@ export default function CheckoutPage() {
       } catch (googleError) {
         console.error('❌ Failed to send to Google Sheets:', googleError);
       }
+
+      // Track Facebook Pixel Purchase event
+      const productIds = orderItems.map(item => item.id);
+      trackPurchase(totalPrice, 'BDT', productIds);
 
       // Also store in localStorage as backup (including orderId if available)
       const backupData = {
@@ -196,7 +214,7 @@ export default function CheckoutPage() {
                 <div className="space-y-4">
                   {groupedItems.map(({ product: item, totalQuantity }) => {
                     const isOutOfStock = item.stock === 0;
-                    const isSpecialPricing = item.id === 'gear-lever-sleeve';
+                    const isSpecialPricing = hasSpecialPricing(item.id);
                     const itemTotalPrice = getProductPrice(item.id, totalQuantity, item.price);
                     return (
                       <div

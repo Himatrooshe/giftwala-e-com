@@ -168,7 +168,7 @@ export default function ThankYouOrder() {
             <ul className="text-yellow-900 text-sm space-y-2">
               <li>Pay the courier in cash upon delivery. No advance needed.</li>
               <li>Please keep your phone available for the confirmation call.</li>
-              <li>Delivery charge: Inside Dhaka ৳80 · Outside Dhaka ৳150.</li>
+              <li>Delivery charge: Inside Dhaka ৳80 · Outside Dhaka ৳120.</li>
             </ul>
           </motion.div>
 

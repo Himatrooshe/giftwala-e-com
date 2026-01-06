@@ -8,7 +8,7 @@ import { ShoppingCart, ArrowRight, Check, Star, Truck, Shield, Package, RotateCc
 import Link from 'next/link';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
-import { calculateGearLeverPrice, getGearLeverUnitPrice } from '@/lib/pricing';
+import { getProductPrice, getProductUnitPrice, hasSpecialPricing } from '@/lib/pricing';
 
 interface ProductDetailsProps {
   product: Product;
@@ -20,21 +20,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  // Calculate price based on quantity for gear-lever-sleeve
-  const isSpecialPricing = product.id === 'gear-lever-sleeve';
+  // Calculate price based on quantity (handles special pricing if configured)
+  const isSpecialPricing = hasSpecialPricing(product.id);
   const totalPrice = useMemo(() => {
-    if (isSpecialPricing) {
-      return calculateGearLeverPrice(quantity);
-    }
-    return product.price * quantity;
-  }, [quantity, product.price, product.id, isSpecialPricing]);
+    return getProductPrice(product.id, quantity, product.price);
+  }, [quantity, product.price, product.id]);
 
   const unitPrice = useMemo(() => {
-    if (isSpecialPricing) {
-      return getGearLeverUnitPrice(quantity);
-    }
-    return product.price;
-  }, [quantity, product.price, product.id, isSpecialPricing]);
+    return getProductUnitPrice(product.id, quantity, product.price);
+  }, [quantity, product.price, product.id]);
 
   const handleAddToCart = () => {
     // Add items to cart - the cart will group them by ID
@@ -298,7 +292,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                               Total for {quantity} pieces: ৳{totalPrice}
                             </span>
                             {quantity === 2 && (
-                              <span className="ml-2 text-sm text-green-600 font-semibold">(Save ৳120!)</span>
+                              <span className="ml-2 text-sm text-green-600 font-semibold">(Save ৳130! 🎉)</span>
                             )}
                             {quantity >= 3 && (
                               <span className="ml-2 text-sm text-green-600 font-semibold">(৳{unitPrice} per piece)</span>
@@ -335,13 +329,254 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                         <p className="text-sm font-semibold text-blue-900 mb-1">Special Combo Offers:</p>
                         <ul className="text-xs text-blue-800 space-y-0.5">
                           <li>• 1 piece: ৳260</li>
-                          <li>• 2 pieces (Combo): ৳400 (Save ৳120!)</li>
+                          <li>• 2 pieces (Combo): ৳390 (Save ৳130!)</li>
                           <li>• 3+ pieces: ৳180 each (Best Value!)</li>
                         </ul>
                       </div>
                     </div>
                   </div>
                 )}
+
+                {/* Special Offer Combo Button */}
+                {isSpecialPricing && (
+                  <div className="mt-4 space-y-3">
+                    <motion.button
+                      onClick={() => setQuantity(2)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full px-6 py-5 rounded-2xl font-bold transition-all relative overflow-hidden group ${
+                        quantity === 2
+                          ? 'bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white shadow-2xl shadow-green-500/60 ring-4 ring-green-300/50'
+                          : 'bg-gradient-to-r from-orange-50 via-amber-50 to-yellow-50 text-gray-900 hover:from-orange-100 hover:via-amber-100 hover:to-yellow-100 border-3 border-orange-400 hover:border-orange-500 hover:shadow-2xl hover:shadow-orange-300/50 ring-2 ring-orange-200/30'
+                      }`}
+                    >
+                      {/* Animated background gradient on hover */}
+                      {quantity !== 2 && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
+                          className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-green-400/20 transition-opacity duration-500"
+                        >
+                          <div className="absolute inset-0 animate-shimmer"></div>
+                        </motion.div>
+                      )}
+                      
+                      {/* Sparkle effect */}
+                      {quantity !== 2 && (
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <Sparkles className="w-5 h-5 text-green-500 animate-pulse" />
+                        </div>
+                      )}
+                      
+                      {/* Gift icon animation */}
+                      <div className="flex items-center justify-between relative z-10">
+                        <div className="flex items-center gap-3">
+                          {quantity === 2 ? (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1, rotate: [0, -10, 10, -10, 0] }}
+                              transition={{ duration: 0.5 }}
+                            >
+                              <Gift className="w-6 h-6" />
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              animate={{ 
+                                rotate: [0, 5, -5, 5, 0],
+                                scale: [1, 1.1, 1]
+                              }}
+                              transition={{ 
+                                duration: 2,
+                                repeat: Infinity,
+                                repeatType: "reverse"
+                              }}
+                            >
+                              <Gift className="w-6 h-6 text-green-600" />
+                            </motion.div>
+                          )}
+                          <div className="flex flex-col items-start flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-xl font-bold flex items-center gap-2">
+                                🎁 2 Pieces Combo Deal
+                              </span>
+                              {quantity !== 2 && (
+                                <motion.span
+                                  animate={{ 
+                                    scale: [1, 1.3, 1],
+                                    opacity: [1, 0.8, 1]
+                                  }}
+                                  transition={{ 
+                                    duration: 1.2,
+                                    repeat: Infinity
+                                  }}
+                                  className="text-yellow-500 text-2xl"
+                                >
+                                  ⭐
+                                </motion.span>
+                              )}
+                            </div>
+                            <span className="text-sm text-gray-600 mb-1">
+                              {quantity === 2 ? (
+                                <span className="flex items-center gap-1 text-green-600 font-semibold">
+                                  <motion.span
+                                    animate={{ scale: [1, 1.15, 1] }}
+                                    transition={{ duration: 1, repeat: Infinity }}
+                                    className="text-xl"
+                                  >
+                                    ✓
+                                  </motion.span>
+                                  <span>Combo Selected - Great Choice!</span>
+                                </span>
+                              ) : (
+                                <span className="text-orange-600 font-semibold">🔥 Limited Time Offer - Click to Activate!</span>
+                              )}
+                            </span>
+                            {quantity !== 2 && (
+                              <div className="flex items-center gap-2 mt-1">
+                                <span className="text-xs text-gray-500 line-through">৳520</span>
+                                <span className="text-xs text-red-600 font-semibold">25% OFF</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex flex-col items-end">
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-3xl font-extrabold text-gray-900">৳390</span>
+                            {quantity !== 2 && (
+                              <span className="text-lg text-gray-400 line-through">৳520</span>
+                            )}
+                          </div>
+                          {quantity !== 2 && (
+                            <motion.div
+                              animate={{ 
+                                scale: [1, 1.08, 1],
+                                boxShadow: [
+                                  '0 0 0px rgba(34, 197, 94, 0)', 
+                                  '0 0 15px rgba(34, 197, 94, 0.6)', 
+                                  '0 0 0px rgba(34, 197, 94, 0)'
+                                ]
+                              }}
+                              transition={{ 
+                                duration: 2,
+                                repeat: Infinity
+                              }}
+                              className="mt-2"
+                            >
+                              <span className="text-xs bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 text-white px-4 py-2 rounded-full font-extrabold shadow-xl flex items-center gap-1">
+                                <span className="text-base">💰</span>
+                                Save ৳130
+                              </span>
+                            </motion.div>
+                          )}
+                          {quantity === 2 && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-2"
+                            >
+                              <span className="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-full font-bold">
+                                Only ৳195 per piece!
+                              </span>
+                            </motion.div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      {/* Success animation when selected */}
+                      {quantity === 2 && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="absolute inset-0 bg-white/10"
+                        >
+                          <motion.div
+                            animate={{ 
+                              backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                            }}
+                            transition={{ 
+                              duration: 3,
+                              repeat: Infinity,
+                              ease: "linear"
+                            }}
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%]"
+                          />
+                        </motion.div>
+                      )}
+                    </motion.button>
+                    
+                    {quantity > 1 && (
+                      <div className="text-sm text-center">
+                        {quantity === 2 && (
+                          <span className="text-green-600 font-semibold">🎉 Combo Deal: Save ৳130!</span>
+                        )}
+                        {quantity >= 3 && (
+                          <span className="text-green-600 font-semibold">🎉 Best Value: ৳180 per piece!</span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Quantity Selector */}
+                <div className="pt-4 border-t border-gray-200 space-y-3">
+                  <div className="flex items-center gap-4">
+                    <label className="text-base font-semibold text-gray-900">Quantity:</label>
+                    <div className="flex items-center gap-2 border-2 border-gray-300 rounded-xl">
+                      <button
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                        className="px-4 py-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors font-bold"
+                        disabled={quantity <= 1}
+                      >
+                        -
+                      </button>
+                      <span className="px-6 py-2.5 text-base font-bold text-gray-900 min-w-[60px] text-center">
+                        {quantity}
+                      </span>
+                      <button
+                        onClick={() => setQuantity(Math.min(quantity + 1, product.stock))}
+                        className="px-4 py-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors font-bold"
+                        disabled={quantity >= product.stock}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="space-y-3 pt-4">
+                  <button 
+                    onClick={handleOrderNow}
+                    disabled={!product.inStock}
+                    className="w-full py-4 px-6 font-bold text-base sm:text-lg uppercase tracking-wide text-white transition-all duration-300 flex items-center justify-center gap-3 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 group"
+                    style={{
+                      background: 'linear-gradient(to right, #1588D7, #0FB7B1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (product.inStock) {
+                        e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (product.inStock) {
+                        e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
+                      }
+                    }}
+                  >
+                    <ShoppingCart size={24} />
+                    <span>Order Now - ৳{totalPrice}</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+
+                  <button 
+                    onClick={handleAddToCart}
+                    disabled={!product.inStock}
+                    className="w-full py-3.5 px-6 font-semibold text-base text-gray-700 bg-white border-2 border-gray-300 hover:border-gray-400 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <Package size={20} />
+                    <span>Add to Cart</span>
+                  </button>
+                </div>
               </div>
 
               {/* Description */}
@@ -387,214 +622,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   <RotateCcw className="w-6 h-6 mx-auto mb-2 text-purple-500" />
                   <p className="text-xs text-gray-600">Easy Returns</p>
                 </div>
-              </div>
-
-              {/* Special Offer Combo Button */}
-              {isSpecialPricing && (
-                <div className="pt-4 border-t border-gray-200 space-y-3">
-                  <motion.button
-                    onClick={() => setQuantity(2)}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full px-6 py-4 rounded-xl font-semibold transition-all relative overflow-hidden group ${
-                      quantity === 2
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/50'
-                        : 'bg-gradient-to-r from-green-50 to-emerald-50 text-green-700 hover:from-green-100 hover:to-emerald-100 border-2 border-green-300 hover:border-green-400 hover:shadow-lg hover:shadow-green-200/50'
-                    }`}
-                  >
-                    {/* Animated background gradient on hover */}
-                    {quantity !== 2 && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-emerald-400/20 to-green-400/20 transition-opacity duration-500"
-                      >
-                        <div className="absolute inset-0 animate-shimmer"></div>
-                      </motion.div>
-                    )}
-                    
-                    {/* Sparkle effect */}
-                    {quantity !== 2 && (
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <Sparkles className="w-5 h-5 text-green-500 animate-pulse" />
-                      </div>
-                    )}
-                    
-                    {/* Gift icon animation */}
-                    <div className="flex items-center justify-between relative z-10">
-                      <div className="flex items-center gap-3">
-                        {quantity === 2 ? (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1, rotate: [0, -10, 10, -10, 0] }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <Gift className="w-6 h-6" />
-                          </motion.div>
-                        ) : (
-                          <motion.div
-                            animate={{ 
-                              rotate: [0, 5, -5, 5, 0],
-                              scale: [1, 1.1, 1]
-                            }}
-                            transition={{ 
-                              duration: 2,
-                              repeat: Infinity,
-                              repeatType: "reverse"
-                            }}
-                          >
-                            <Gift className="w-6 h-6 text-green-600" />
-                          </motion.div>
-                        )}
-                        <div className="flex flex-col items-start">
-                          <span className="text-lg font-bold flex items-center gap-2">
-                            2 Pieces Combo Deal
-                            {quantity !== 2 && (
-                              <motion.span
-                                animate={{ 
-                                  scale: [1, 1.2, 1],
-                                  opacity: [1, 0.7, 1]
-                                }}
-                                transition={{ 
-                                  duration: 1.5,
-                                  repeat: Infinity
-                                }}
-                                className="text-green-600"
-                              >
-                                ⚡
-                              </motion.span>
-                            )}
-                          </span>
-                          <span className="text-sm mt-0.5">
-                            {quantity === 2 ? (
-                              <span className="flex items-center gap-1">
-                                <motion.span
-                                  animate={{ scale: [1, 1.1, 1] }}
-                                  transition={{ duration: 1, repeat: Infinity }}
-                                >
-                                  ✓ Selected
-                                </motion.span>
-                              </span>
-                            ) : (
-                              <span className="text-green-600 font-medium">Click to select combo offer</span>
-                            )}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end">
-                        <span className="text-2xl font-bold">৳400</span>
-                        {quantity !== 2 && (
-                          <motion.span
-                            animate={{ 
-                              scale: [1, 1.05, 1],
-                              boxShadow: ['0 0 0px rgba(34, 197, 94, 0)', '0 0 10px rgba(34, 197, 94, 0.5)', '0 0 0px rgba(34, 197, 94, 0)']
-                            }}
-                            transition={{ 
-                              duration: 2,
-                              repeat: Infinity
-                            }}
-                            className="text-xs bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1.5 rounded-full mt-1 font-bold shadow-lg"
-                          >
-                            Save ৳120
-                          </motion.span>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {/* Success animation when selected */}
-                    {quantity === 2 && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="absolute inset-0 bg-white/10"
-                      >
-                        <motion.div
-                          animate={{ 
-                            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
-                          }}
-                          transition={{ 
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "linear"
-                          }}
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:200%_100%]"
-                        />
-                      </motion.div>
-                    )}
-                  </motion.button>
-                  
-                  {quantity > 1 && (
-                    <div className="text-sm text-center">
-                      {quantity === 2 && (
-                        <span className="text-green-600 font-semibold">🎉 Combo Deal: Save ৳120!</span>
-                      )}
-                      {quantity >= 3 && (
-                        <span className="text-green-600 font-semibold">🎉 Best Value: ৳180 per piece!</span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Quantity Selector */}
-              <div className={`pt-4 border-t border-gray-200 space-y-3 ${isSpecialPricing ? '' : ''}`}>
-                <div className="flex items-center gap-4">
-                  <label className="text-base font-semibold text-gray-900">Quantity:</label>
-                  <div className="flex items-center gap-2 border-2 border-gray-300 rounded-xl">
-                    <button
-                      onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="px-4 py-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors font-bold"
-                      disabled={quantity <= 1}
-                    >
-                      -
-                    </button>
-                    <span className="px-6 py-2.5 text-base font-bold text-gray-900 min-w-[60px] text-center">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => setQuantity(Math.min(quantity + 1, product.stock))}
-                      className="px-4 py-2.5 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors font-bold"
-                      disabled={quantity >= product.stock}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="space-y-3 pt-4">
-                <button 
-                  onClick={handleOrderNow}
-                  disabled={!product.inStock}
-                  className="w-full py-4 px-6 font-bold text-base sm:text-lg uppercase tracking-wide text-white transition-all duration-300 flex items-center justify-center gap-3 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 group"
-                  style={{
-                    background: 'linear-gradient(to right, #1588D7, #0FB7B1)'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (product.inStock) {
-                      e.currentTarget.style.background = 'linear-gradient(to right, #0d6ba8, #0c9a94)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (product.inStock) {
-                      e.currentTarget.style.background = 'linear-gradient(to right, #1588D7, #0FB7B1)';
-                    }
-                  }}
-                >
-                  <ShoppingCart size={24} />
-                  <span>Order Now - ৳{totalPrice}</span>
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
-
-                <button 
-                  onClick={handleAddToCart}
-                  disabled={!product.inStock}
-                  className="w-full py-3.5 px-6 font-semibold text-base text-gray-700 bg-white border-2 border-gray-300 hover:border-gray-400 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <Package size={20} />
-                  <span>Add to Cart</span>
-                </button>
               </div>
 
               {/* Back to Products */}
