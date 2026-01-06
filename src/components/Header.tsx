@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Menu, X, ShoppingCart, Search } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -10,6 +10,7 @@ import { products } from '@/data/products';
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('HOME');
@@ -111,6 +112,56 @@ export default function Header() {
         product.category.toLowerCase().includes(lowerQuery)
     );
   }, [searchQuery]);
+
+  // Update active link based on current pathname
+  useEffect(() => {
+    // Determine active link based on current pathname
+    if (pathname.startsWith('/products')) {
+      // Handle both /products and /products/[id] pages
+      setActiveLink('PRODUCTS');
+    } else if (pathname === '/contact') {
+      setActiveLink('CONTACT');
+    } else if (pathname === '/') {
+      // For home page, check hash or default to HOME
+      const hash = window.location.hash;
+      if (hash === '#about') {
+        setActiveLink('ABOUT');
+      } else if (hash === '#faq') {
+        setActiveLink('FAQS');
+      } else {
+        setActiveLink('HOME');
+      }
+    } else {
+      // For other pages, default to HOME
+      setActiveLink('HOME');
+    }
+  }, [pathname]);
+
+  // Handle hash changes on home page for section navigation
+  useEffect(() => {
+    if (pathname !== '/') return;
+
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#about') {
+        setActiveLink('ABOUT');
+      } else if (hash === '#faq') {
+        setActiveLink('FAQS');
+      } else if (hash === '#home' || !hash) {
+        setActiveLink('HOME');
+      }
+    };
+
+    // Check initial hash
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [pathname]);
 
   // Handle hash navigation from other pages
   useEffect(() => {

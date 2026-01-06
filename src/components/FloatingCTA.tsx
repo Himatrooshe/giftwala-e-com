@@ -14,7 +14,7 @@ export default function FloatingCTA() {
 
   const phoneNumber = '01789571784';
   const whatsappMessageLink = 'https://wa.me/message/QB5ZDFKU4NQBL1';
-  const email = 'support@giftwalabd.com';
+  const email = 'tuhinbogra010@gmail.com';
 
   return (
     <div className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 pointer-events-auto transition-opacity duration-300 ${

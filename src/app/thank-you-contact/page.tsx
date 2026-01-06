@@ -65,7 +65,7 @@ export default function ThankYouContact() {
             <div className="space-y-3">
               <div className="flex items-center justify-center gap-3">
                 <Mail className="w-5 h-5 text-red-600" />
-                <span className="text-gray-700">support@giftwalabd.com</span>
+                <span className="text-gray-700">tuhinbogra010@gmail.com</span>
               </div>
               <div className="flex items-center justify-center gap-3">
                 <Phone className="w-5 h-5 text-red-600" />

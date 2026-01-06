@@ -19,7 +19,7 @@ export const products: Product[] = [
   
   {
     id: 'gear-lever-sleeve',
-    name: 'Gear Lever Silicone Rubber Sleeve (গিয়ার লিভার সিলিকন রাবার স্লিভ)',
+    name: 'Gear Shifter Lever Shoe Protector(গিয়ার লিভার সিলিকন রাবার স্লিভ)',
     tagline: 'আপনার জুতার পারফেক্ট প্রোটেকশন! Perfect shoe protection for bikers',
     price: 260, // Base price for 1 item (special pricing: 1=260, 2=400, 3+=180 each)
     originalPrice: 499,

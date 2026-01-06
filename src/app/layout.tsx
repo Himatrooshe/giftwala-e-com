@@ -99,7 +99,7 @@ export const metadata: Metadata = {
   },
   other: {
     'og:phone_number': '+880 1789571784',
-    'og:email': 'support@giftwalabd.com',
+    'og:email': 'tuhinbogra010@gmail.com',
     'og:locality': 'Dhaka',
     'og:region': 'Dhaka',
     'og:country-name': 'Bangladesh',

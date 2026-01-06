@@ -138,10 +138,10 @@ export default function Footer() {
               <li className="flex items-start space-x-3">
                 <Mail className="text-red-400 flex-shrink-0 mt-1" size={20} />
                 <a
-                  href="mailto:support@giftwalabd.com"
+                  href="mailto:tuhinbogra010@gmail.com"
                   className="hover:text-red-400 transition-colors duration-200"
                 >
-                  support@giftwalabd.com
+                  tuhinbogra010@gmail.com
                 </a>
               </li>
             </ul>

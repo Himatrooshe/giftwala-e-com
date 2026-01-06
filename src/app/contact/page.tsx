@@ -287,7 +287,7 @@ export default function Contact() {
                     <h3 className="font-semibold text-gray-900 mb-1 text-lg">Email</h3>
                     <p className="text-gray-600 mb-2">Send us an email</p>
                     <a 
-                      href="mailto:support@giftwalabd.com" 
+                      href="mailto:tuhinbogra010@gmail.com" 
                       className="font-semibold transition-colors"
                       style={{ color: '#1588D7' }}
                       onMouseEnter={(e) => {
@@ -297,7 +297,7 @@ export default function Contact() {
                         e.currentTarget.style.color = '#1588D7';
                       }}
                     >
-                      support@giftwalabd.com
+                      tuhinbogra010@gmail.com
                     </a>
                   </div>
                 </div>
