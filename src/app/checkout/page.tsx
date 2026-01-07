@@ -122,7 +122,7 @@ export default function CheckoutPage() {
 
         // Google Apps Script Web App URL for order processing
         // The script saves orders to Google Sheets and sends confirmation emails
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbzij0EZ5_pPJZhKH9vuzOauPj_OCDwOK4MSuHjNi5vpuoX80Y1lEJi9oKxDyL30NNTi/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbyTzPANCKs8fuhrrFzbZf0vOw-_j2EXzcPdhjVxjrECmxwVO9nekksYQgQD1p0RPlI8/exec';
 
         // Note: Apps Script should set CORS headers and accept text/plain to avoid preflight
         const res = await fetch(scriptUrl, {
