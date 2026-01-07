@@ -9,9 +9,9 @@ export async function GET(request: Request) {
   const pages = [
     { url: '', priority: '1.0', changefreq: 'daily' },
     { url: 'products', priority: '0.9', changefreq: 'daily' },
-    { url: 'reviews', priority: '0.7', changefreq: 'weekly' },
-    { url: 'contact', priority: '0.6', changefreq: 'monthly' },
-    { url: 'checkout', priority: '0.5', changefreq: 'monthly' },
+    { url: 'contact', priority: '0.8', changefreq: 'monthly' },
+    { url: 'thank-you-order', priority: '0.3', changefreq: 'monthly' },
+    { url: 'thank-you-contact', priority: '0.3', changefreq: 'monthly' },
   ];
 
   // Add all product pages with images

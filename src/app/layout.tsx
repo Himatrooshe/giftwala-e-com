@@ -104,7 +104,7 @@ export const metadata: Metadata = {
     'og:region': 'Dhaka',
     'og:country-name': 'Bangladesh',
     'og:postal-code': '1000',
-    'google-site-verification': 'yzsoc0u1oIwZw_tksgUkxbh3Oti5Q79wSaMZCOrBMcw',
+    'google-site-verification': 'bvlSpR6-qqpcU6lk8bnRCeomUeth_cG_hWDnFqVqN9Y',
     'business:contact_data:street_address': 'Dhaka',
     'business:contact_data:locality': 'Dhaka',
     'business:contact_data:country_name': 'Bangladesh',
@@ -134,14 +134,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="https://res.cloudinary.com/dufzkjd0c/image/upload/v1765099511/favicon_ftg7xq.png" />
         
         {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LB4F7582J6"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DBHKFCWXCE"></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-LB4F7582J6');
+              gtag('config', 'G-DBHKFCWXCE');
             `,
           }}
         />
