@@ -7,7 +7,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { getProductPrice, hasSpecialPricing } from '@/lib/pricing';
-import { trackInitiateCheckout, trackPurchase } from '@/lib/facebook-pixel';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -53,13 +52,6 @@ export default function CheckoutPage() {
 
   const deliveryCost = formData.deliveryLocation === 'inside' ? insideDhakaDelivery : outsideDhakaDelivery;
   const totalPrice = subtotal + (subtotal > 0 ? deliveryCost : 0);
-
-  // Track InitiateCheckout when user lands on checkout page with items
-  useEffect(() => {
-    if (subtotal > 0 && hasItems) {
-      trackInitiateCheckout(totalPrice, 'BDT');
-    }
-  }, [subtotal, totalPrice, hasItems]);
 
   const handleQuantityChange = (productId: string, delta: number) => {
     const target = cartItems.find((item) => item.id === productId);
@@ -147,10 +139,6 @@ export default function CheckoutPage() {
       } catch (googleError) {
         console.error('❌ Failed to send to Google Sheets:', googleError);
       }
-
-      // Track Facebook Pixel Purchase event
-      const productIds = orderItems.map(item => item.id);
-      trackPurchase(totalPrice, 'BDT', productIds);
 
       // Also store in localStorage as backup (including orderId if available)
       const backupData = {

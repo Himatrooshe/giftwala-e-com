@@ -43,6 +43,28 @@ export default function ThankYouOrder() {
     }
   }, []);
 
+  // Add purchase metadata for Meta Pixel automatic detection
+  useEffect(() => {
+    if (lastOrder && lastOrder.totalPrice) {
+      // Add meta tags for Meta Pixel to detect purchase value
+      const metaTags = [
+        { property: 'product:price:amount', content: lastOrder.totalPrice.toString() },
+        { property: 'product:price:currency', content: 'BDT' },
+        { property: 'og:type', content: 'product.order' },
+      ];
+
+      metaTags.forEach(({ property, content }) => {
+        let meta = document.querySelector(`meta[property="${property}"]`);
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      });
+    }
+  }, [lastOrder]);
+
   return (
     <div className="min-h-screen bg-white">
       <Header />

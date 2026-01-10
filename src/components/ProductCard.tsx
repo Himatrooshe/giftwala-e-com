@@ -7,7 +7,6 @@ import Link from 'next/link';
 import type { MouseEvent } from 'react';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
-import { trackAddToCart } from '@/lib/facebook-pixel';
 
 interface ProductCardProps {
   product: Product;
@@ -20,13 +19,6 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product);
-    // Track Facebook Pixel AddToCart event
-    trackAddToCart({
-      content_name: product.name,
-      content_ids: [product.id],
-      value: product.price,
-      currency: 'BDT',
-    });
   };
 
   const imageUrl = product.images && product.images.length > 0 
