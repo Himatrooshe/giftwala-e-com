@@ -33,7 +33,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title: product.name,
       description: product.tagline || product.description,
       images: [imageUrl],
-      type: 'product',
     },
     other: {
       // Product metadata for Meta Pixel automatic event detection
