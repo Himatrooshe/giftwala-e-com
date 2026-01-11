@@ -1,7 +1,36 @@
 'use client';
 import Script from 'next/script';
+import { useEffect } from 'react';
+
+const PIXEL_ID = '834992922921146';
 
 const FacebookPixel = () => {
+  useEffect(() => {
+    // Track PageView with server-side API on mount
+    const eventId = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
+    
+    // Send to server for Conversions API
+    fetch('/api/meta-pixel', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_name: 'PageView',
+        event_id: eventId,
+        event_source_url: window.location.href,
+        user_data: {
+          client_user_agent: navigator.userAgent,
+          fbp: getCookie('_fbp'),
+          fbc: getCookie('_fbc'),
+        }
+      })
+    }).catch(err => console.error('Meta CAPI error:', err));
+
+    // Track with browser pixel (with same event_id for deduplication)
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('track', 'PageView', {}, { eventID: eventId });
+    }
+  }, []);
+
   return (
     <>
       {/* Meta Pixel Script */}
@@ -27,8 +56,7 @@ const FacebookPixel = () => {
             }(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
 
-            fbq('init', '${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || '834992922921146'}');
-            fbq('track', 'PageView');
+            fbq('init', '${PIXEL_ID}');
           `
         }}
       />
@@ -38,11 +66,19 @@ const FacebookPixel = () => {
           height={1}
           width={1}
           style={{ display: 'none' }}
-          src={`https://www.facebook.com/tr?id=${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || '834992922921146'}&ev=PageView&noscript=1`}
+          src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
         />
       </noscript>
     </>
   );
 };
+
+// Helper to get cookies
+function getCookie(name: string): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+}
 
 export default FacebookPixel;

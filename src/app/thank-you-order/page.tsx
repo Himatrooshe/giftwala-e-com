@@ -6,6 +6,7 @@ import { CheckCircle, Package, Truck, Clock, ArrowLeft, Home, Phone } from 'luci
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { trackPurchase } from '@/utils/metaPixel';
 
 export default function ThankYouOrder() {
   const [lastOrder, setLastOrder] = useState<null | {
@@ -42,6 +43,17 @@ export default function ThankYouOrder() {
       // ignore
     }
   }, []);
+
+  // Track Purchase event with Meta Pixel & Conversions API
+  useEffect(() => {
+    if (lastOrder?.totalPrice) {
+      trackPurchase({
+        value: lastOrder.totalPrice,
+        currency: 'BDT',
+        orderId: lastOrder.orderId || orderId || undefined,
+      });
+    }
+  }, [lastOrder, orderId]);
 
 
   return (

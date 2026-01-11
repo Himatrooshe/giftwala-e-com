@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { getProductPrice, hasSpecialPricing } from '@/lib/pricing';
+import { trackInitiateCheckout } from '@/utils/metaPixel';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -25,6 +26,14 @@ export default function CheckoutPage() {
 
   const selectedItems = cartItems.filter((item) => item.quantity > 0);
   const hasItems = cartItems.length > 0;
+
+  // Track InitiateCheckout event when page loads with items
+  useEffect(() => {
+    if (hasItems && selectedItems.length > 0) {
+      const total = selectedItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      trackInitiateCheckout({ value: total, currency: 'BDT' });
+    }
+  }, []); // Run only once on mount
 
   // Group items by product ID to handle special pricing correctly
   const groupedItems = useMemo(() => {
