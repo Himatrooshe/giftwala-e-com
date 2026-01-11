@@ -11,7 +11,7 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generate metadata for SEO and Meta Pixel automatic tracking
+// Generate metadata for SEO
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const product = getProductById(id);
@@ -34,18 +34,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       description: product.tagline || product.description,
       images: [imageUrl],
     },
-    other: {
-      // Product metadata for Meta Pixel automatic event detection
-      'product:price:amount': product.price.toString(),
-      'product:price:currency': 'BDT',
-      'product:availability': product.inStock ? 'in stock' : 'out of stock',
-      'product:condition': 'new',
-      'product:retailer_item_id': product.id,
-      'og:type': 'product',
-      'og:price:amount': product.price.toString(),
-      'og:price:currency': 'BDT',
-      'og:availability': product.inStock ? 'in stock' : 'out of stock',
-    },
   };
 }
 
@@ -62,7 +50,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     ? product.images[0] 
     : '/main-pro.jpeg';
 
-  // Structured data for Meta Pixel automatic event detection
+  // Structured data for SEO
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -86,7 +74,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Structured Data for Meta Pixel & SEO */}
+      {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
