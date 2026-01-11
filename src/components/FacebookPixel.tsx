@@ -4,32 +4,45 @@ import { useEffect } from 'react';
 
 const PIXEL_ID = '834992922921146';
 
-const FacebookPixel = () => {
-  useEffect(() => {
-    // Track PageView with server-side API on mount
-    const eventId = `${Date.now()}-${Math.random().toString(36).substring(7)}`;
-    
-    // Send to server for Conversions API
-    fetch('/api/meta-pixel', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        event_name: 'PageView',
-        event_id: eventId,
-        event_source_url: window.location.href,
-        user_data: {
-          client_user_agent: navigator.userAgent,
-          fbp: getCookie('_fbp'),
-          fbc: getCookie('_fbc'),
-        }
-      })
-    }).catch(err => console.error('Meta CAPI error:', err));
+// Helper to get cookies
+function getCookie(name: string): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift();
+}
 
-    // Track with browser pixel (with same event_id for deduplication)
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('track', 'PageView', {}, { eventID: eventId });
-    }
-  }, []);
+// Track PageView with both pixel and server
+function trackPageView() {
+  const eventId = `pv-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+  
+  // 1. Track with browser pixel
+  if (typeof window !== 'undefined' && (window as any).fbq) {
+    (window as any).fbq('track', 'PageView', {}, { eventID: eventId });
+  }
+  
+  // 2. Send to server for Conversions API
+  fetch('/api/meta-pixel', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      event_name: 'PageView',
+      event_id: eventId,
+      event_source_url: window.location.href,
+      user_data: {
+        client_user_agent: navigator.userAgent,
+        fbp: getCookie('_fbp'),
+        fbc: getCookie('_fbc'),
+      }
+    })
+  }).catch(err => console.error('Meta CAPI error:', err));
+}
+
+const FacebookPixel = () => {
+  const handlePixelLoad = () => {
+    // Track PageView after pixel script loads
+    trackPageView();
+  };
 
   return (
     <>
@@ -37,6 +50,7 @@ const FacebookPixel = () => {
       <Script
         strategy="afterInteractive"
         id="facebook-pixel"
+        onLoad={handlePixelLoad}
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s) {
@@ -72,13 +86,5 @@ const FacebookPixel = () => {
     </>
   );
 };
-
-// Helper to get cookies
-function getCookie(name: string): string | undefined {
-  if (typeof document === 'undefined') return undefined;
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift();
-}
 
 export default FacebookPixel;

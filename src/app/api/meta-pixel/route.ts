@@ -9,11 +9,28 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { event_name, event_id, event_source_url, user_data, custom_data } = body;
 
+    // Validate required fields
+    if (!event_name) {
+      console.error('Missing event_name');
+      return NextResponse.json(
+        { error: 'event_name is required' },
+        { status: 400 }
+      );
+    }
+
+    if (!event_id) {
+      console.error('Missing event_id');
+      return NextResponse.json(
+        { error: 'event_id is required' },
+        { status: 400 }
+      );
+    }
+
     // Get user IP and user agent from request
     const forwardedFor = request.headers.get('x-forwarded-for');
     const clientIp = forwardedFor ? forwardedFor.split(',')[0].trim() : 
                      request.headers.get('x-real-ip') || '';
-    const userAgent = request.headers.get('user-agent') || '';
+    const userAgent = request.headers.get('user-agent') || user_data?.client_user_agent || '';
 
     // Prepare event data for Conversions API Gateway
     const eventData = {
@@ -22,7 +39,7 @@ export async function POST(request: NextRequest) {
           event_name,
           event_time: Math.floor(Date.now() / 1000),
           event_id,
-          event_source_url,
+          event_source_url: event_source_url || '',
           action_source: 'website',
           user_data: {
             client_ip_address: clientIp,
@@ -34,6 +51,12 @@ export async function POST(request: NextRequest) {
         }
       ]
     };
+
+    console.log('Sending to Meta CAPI Gateway:', {
+      event_name,
+      event_id,
+      gateway: `${GATEWAY_URL}/${PIXEL_ID}/events`
+    });
 
     // Send to Meta Conversions API Gateway (proxies to Meta)
     const response = await fetch(
@@ -47,21 +70,32 @@ export async function POST(request: NextRequest) {
       }
     );
 
-    const result = await response.json();
+    let result;
+    try {
+      result = await response.json();
+    } catch (e) {
+      const text = await response.text();
+      console.error('Failed to parse response:', text);
+      result = { raw: text };
+    }
 
     if (!response.ok) {
-      console.error('Meta CAPI Gateway Error:', result);
+      console.error('Meta CAPI Gateway Error:', {
+        status: response.status,
+        result
+      });
       return NextResponse.json(
         { error: 'Failed to send event', details: result },
         { status: response.status }
       );
     }
 
+    console.log('Meta CAPI Gateway Success:', result);
     return NextResponse.json({ success: true, result });
   } catch (error) {
-    console.error('Meta CAPI Gateway Error:', error);
+    console.error('Meta CAPI Gateway Exception:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', message: String(error) },
       { status: 500 }
     );
   }

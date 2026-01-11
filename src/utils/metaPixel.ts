@@ -24,32 +24,73 @@ interface TrackEventParams {
   customData?: Record<string, any>;
 }
 
+// Wait for fbq to be available
+function waitForFbq(timeout = 5000): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof window !== 'undefined' && window.fbq) {
+      resolve(true);
+      return;
+    }
+
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      if (typeof window !== 'undefined' && window.fbq) {
+        clearInterval(interval);
+        resolve(true);
+      } else if (Date.now() - startTime > timeout) {
+        clearInterval(interval);
+        resolve(false);
+      }
+    }, 100);
+  });
+}
+
 // Track event with both Browser Pixel and Conversions API
 export async function trackMetaEvent({ eventName, customData }: TrackEventParams) {
+  if (!eventName) {
+    console.error('trackMetaEvent: eventName is required');
+    return;
+  }
+
   const eventId = generateEventId();
 
   // 1. Track with Browser Pixel (client-side)
-  if (typeof window !== 'undefined' && window.fbq) {
-    window.fbq('track', eventName, customData || {}, { eventID: eventId });
+  const fbqReady = await waitForFbq();
+  if (fbqReady && typeof window !== 'undefined' && window.fbq) {
+    try {
+      window.fbq('track', eventName, customData || {}, { eventID: eventId });
+      console.log('Meta Pixel tracked:', eventName, eventId);
+    } catch (error) {
+      console.error('Meta Pixel error:', error);
+    }
+  } else {
+    console.warn('Meta Pixel (fbq) not available for:', eventName);
   }
 
   // 2. Track with Conversions API (server-side)
   try {
-    await fetch('/api/meta-pixel', {
+    const response = await fetch('/api/meta-pixel', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         event_name: eventName,
         event_id: eventId,
-        event_source_url: window.location.href,
+        event_source_url: typeof window !== 'undefined' ? window.location.href : '',
         user_data: {
-          client_user_agent: navigator.userAgent,
+          client_user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
           fbp: getCookie('_fbp'),
           fbc: getCookie('_fbc'),
         },
         custom_data: customData,
       })
     });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Meta CAPI error:', error);
+    } else {
+      console.log('Meta CAPI tracked:', eventName, eventId);
+    }
   } catch (error) {
     console.error('Meta CAPI tracking error:', error);
   }
