@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { getProductPrice, hasSpecialPricing } from '@/lib/pricing';
-import { trackInitiateCheckout } from '@/utils/metaPixel';
+import { trackInitiateCheckout } from '@/lib/metaPixel';
 
 export default function CheckoutPage() {
   const router = useRouter();
