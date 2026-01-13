@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Clock, MessageCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { trackLead } from '@/lib/metaPixel';
 
 export default function Contact() {
   const router = useRouter();
@@ -31,12 +32,26 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
+      // Store user data for tracking
+      if (formData.email || formData.phone) {
+        const userData = {
+          email: formData.email,
+          phone: formData.phone,
+          name: formData.name,
+          timestamp: Date.now()
+        };
+        localStorage.setItem('userTrackingData', JSON.stringify(userData));
+      }
+
       const response = await fetch('https://script.google.com/macros/s/AKfycbxySwJfivbBwNA3nk9EoL5ZLMd0c5Ym3UtveoN2q9VuAQWI5gS8PeuznwcWiMoHXY36/exec?sheet=contact-us', {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
+
+      // Track Lead event
+      await trackLead();
 
       router.push('/thank-you-contact');
     } catch (error) {

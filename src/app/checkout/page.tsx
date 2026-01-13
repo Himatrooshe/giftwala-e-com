@@ -35,6 +35,19 @@ export default function CheckoutPage() {
     }
   }, []); // Run only once on mount
 
+  // Store user data for better event deduplication
+  useEffect(() => {
+    if (formData.email || formData.phone) {
+      const userData = {
+        email: formData.email,
+        phone: formData.phone,
+        name: formData.fullName,
+        timestamp: Date.now()
+      };
+      localStorage.setItem('userTrackingData', JSON.stringify(userData));
+    }
+  }, [formData.email, formData.phone, formData.fullName]);
+
   // Group items by product ID to handle special pricing correctly
   const groupedItems = useMemo(() => {
     const grouped = new Map<string, { product: typeof cartItems[0], totalQuantity: number }>();

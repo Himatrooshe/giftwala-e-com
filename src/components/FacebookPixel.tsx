@@ -29,8 +29,20 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '834992922921146');
+
+// Initialize pixel with enhanced configuration
+fbq('init', '834992922921146', {
+  em: 'auto', // Enable automatic email matching
+  ph: 'auto', // Enable automatic phone matching
+  fn: 'auto', // Enable automatic name matching
+  external_id: 'auto' // Enable automatic external ID matching
+});
+
+// Track initial PageView
 fbq('track', 'PageView');
+
+// Enable advanced matching for better attribution
+fbq('set', 'autoConfig', true, '834992922921146');
           `
         }}
       />

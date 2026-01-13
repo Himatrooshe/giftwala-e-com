@@ -35,21 +35,45 @@ export async function POST(request: NextRequest) {
                      request.headers.get('x-real-ip') || '';
     const userAgent = request.headers.get('user-agent') || '';
 
+    // Hash sensitive user data for privacy compliance
+    const hashUserData = (data: any) => {
+      const crypto = require('crypto');
+      if (data.em) data.em = crypto.createHash('sha256').update(data.em).digest('hex');
+      if (data.ph) data.ph = crypto.createHash('sha256').update(data.ph).digest('hex');
+      if (data.fn) data.fn = crypto.createHash('sha256').update(data.fn).digest('hex');
+      if (data.external_id) data.external_id = crypto.createHash('sha256').update(data.external_id).digest('hex');
+      return data;
+    };
+
+    // Build enhanced user data
+    const enhancedUserData = {
+      client_ip_address: clientIp,
+      client_user_agent: userAgent,
+      fbp: user_data?.fbp || undefined,
+      fbc: user_data?.fbc || undefined,
+    };
+
+    // Add hashed user data if available
+    if (user_data?.em || user_data?.ph || user_data?.fn || user_data?.external_id) {
+      const hashedData = hashUserData({
+        em: user_data.em,
+        ph: user_data.ph,
+        fn: user_data.fn,
+        external_id: user_data.external_id
+      });
+      Object.assign(enhancedUserData, hashedData);
+    }
+
     // Build the payload according to Meta's specification
     const payload = {
       data: [
         {
           event_name,
           event_time: event_time || Math.floor(Date.now() / 1000),
-          event_id: event_id || undefined,
+          event_id: event_id || `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
           action_source: 'website',
           event_source_url: user_data?.event_source_url || '',
-          user_data: {
-            client_ip_address: clientIp,
-            client_user_agent: userAgent,
-            fbp: user_data?.fbp || undefined,
-            fbc: user_data?.fbc || undefined,
-          },
+          user_data: enhancedUserData,
           custom_data: custom_data || undefined,
         }
       ]

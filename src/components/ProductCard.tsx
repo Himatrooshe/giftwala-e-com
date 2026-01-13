@@ -7,6 +7,7 @@ import Link from 'next/link';
 import type { MouseEvent } from 'react';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
+import { trackAddToCart } from '@/lib/metaPixel';
 
 interface ProductCardProps {
   product: Product;
@@ -15,10 +16,17 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
 
-  const handleAddToCart = (e: MouseEvent) => {
+  const handleAddToCart = async (e: MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product);
+    
+    // Track AddToCart event with Meta Pixel & Conversions API
+    await trackAddToCart({
+      value: product.price,
+      currency: 'BDT',
+      contentName: product.name
+    });
   };
 
   const imageUrl = product.images && product.images.length > 0 

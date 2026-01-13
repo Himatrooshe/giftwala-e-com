@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -9,6 +9,7 @@ import Link from 'next/link';
 import type { Product } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import { getProductPrice, getProductUnitPrice, hasSpecialPricing } from '@/lib/pricing';
+import { trackAddToCart, trackViewContent } from '@/lib/metaPixel';
 
 interface ProductDetailsProps {
   product: Product;
@@ -20,6 +21,18 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
+  // Track ViewContent event when component mounts
+  useEffect(() => {
+    if (product.inStock) {
+      trackViewContent({
+        value: product.price,
+        currency: 'BDT',
+        contentName: product.name,
+        contentId: product.id
+      });
+    }
+  }, [product]);
+
   // Calculate price based on quantity (handles special pricing if configured)
   const isSpecialPricing = hasSpecialPricing(product.id);
   const totalPrice = useMemo(() => {
@@ -30,12 +43,19 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     return getProductUnitPrice(product.id, quantity, product.price);
   }, [quantity, product.price, product.id]);
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     // Add items to cart - the cart will group them by ID
     // Pricing will be calculated at checkout based on total quantity
     for (let i = 0; i < quantity; i++) {
       addToCart(product);
     }
+    
+    // Track AddToCart event with Meta Pixel & Conversions API
+    await trackAddToCart({
+      value: totalPrice,
+      currency: 'BDT',
+      contentName: product.name
+    });
   };
 
   const handleOrderNow = () => {

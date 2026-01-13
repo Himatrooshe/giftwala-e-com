@@ -47,10 +47,11 @@ export default function ThankYouOrder() {
   // Track Purchase event with Meta Pixel & Conversions API
   useEffect(() => {
     if (lastOrder?.totalPrice) {
+      // Enhanced purchase tracking with better deduplication
       trackPurchase({
         value: lastOrder.totalPrice,
         currency: 'BDT',
-        orderId: lastOrder.orderId || orderId || undefined,
+        orderId: lastOrder.orderId || orderId || `order-${Date.now()}`,
       });
     }
   }, [lastOrder, orderId]);
