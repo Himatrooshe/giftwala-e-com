@@ -5,7 +5,7 @@ import SmoothScrollProvider from '@/components/SmoothScrollProvider';
 import FloatingCTA from '@/components/FloatingCTA';
 import { CartProvider } from '@/context/CartContext';
 import CartDrawer from '@/components/CartDrawer';
-import FacebookPixel from '@/components/FacebookPixel';
+import { FBPixelScript } from '@rivercode/facebook-conversion-api-nextjs/components';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -135,7 +135,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="https://res.cloudinary.com/dufzkjd0c/image/upload/v1765099511/favicon_ftg7xq.png" />
       </head>
       <body className={`${inter.className} font-inter antialiased`}>
-        <FacebookPixel />
+        <FBPixelScript />
         <SmoothScrollProvider>
           <CartProvider>
             {children}

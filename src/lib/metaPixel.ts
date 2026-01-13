@@ -1,16 +1,7 @@
 /**
- * Meta Pixel Helper Functions
- * Tracks events with both Browser Pixel and Conversions API
- * Includes deduplication with event_id and enhanced user matching
+ * Meta Pixel Helper Functions with Facebook Conversion API
+ * Uses the professional package for Pixel integration with custom API route
  */
-
-import { 
-  validateEventData, 
-  getTrackingConfig, 
-  formatCurrencyValue, 
-  normalizePhoneNumber, 
-  normalizeEmail 
-} from './trackingConfig';
 
 // Get cookie value
 function getCookie(name: string): string | undefined {
@@ -20,39 +11,47 @@ function getCookie(name: string): string | undefined {
   if (parts.length === 2) return parts.pop()?.split(';').shift();
 }
 
-// Get enhanced user data from localStorage and forms
-function getEnhancedUserData() {
+// Generate unique event ID for deduplication
+function generateEventId(): string {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+}
+
+// Get user data from localStorage for better tracking
+function getUserData() {
   if (typeof window === 'undefined') return {};
   
   try {
     let userData: any = {};
     
-    // First try to get from current session tracking data
+    // Get from current session tracking data
     const trackingData = localStorage.getItem('userTrackingData');
     if (trackingData) {
       const data = JSON.parse(trackingData);
-      if (data.email) userData.em = normalizeEmail(data.email);
-      if (data.phone) userData.ph = normalizePhoneNumber(data.phone);
-      if (data.name) userData.fn = data.name.toLowerCase().trim();
+      if (data.email) userData.emails = [data.email];
+      if (data.phone) userData.phones = [data.phone];
+      if (data.name) {
+        const nameParts = data.name.split(' ');
+        userData.firstName = nameParts[0];
+        if (nameParts.length > 1) userData.lastName = nameParts.slice(1).join(' ');
+      }
     }
     
     // Fallback to recent orders if no current session data
-    if (!userData.em && !userData.ph) {
+    if (!userData.emails && !userData.phones) {
       const pendingOrders = localStorage.getItem('pendingOrders');
       if (pendingOrders) {
         const orders = JSON.parse(pendingOrders);
         if (orders.length > 0) {
           const lastOrder = orders[orders.length - 1];
-          if (lastOrder.email) userData.em = normalizeEmail(lastOrder.email);
-          if (lastOrder.phone) userData.ph = normalizePhoneNumber(lastOrder.phone);
-          if (lastOrder.fullName) userData.fn = lastOrder.fullName.toLowerCase().trim();
+          if (lastOrder.email) userData.emails = [lastOrder.email];
+          if (lastOrder.phone) userData.phones = [lastOrder.phone];
+          if (lastOrder.fullName) {
+            const nameParts = lastOrder.fullName.split(' ');
+            userData.firstName = nameParts[0];
+            if (nameParts.length > 1) userData.lastName = nameParts.slice(1).join(' ');
+          }
         }
       }
-    }
-    
-    // Generate external_id based on available data for better deduplication
-    if (userData.em || userData.ph) {
-      userData.external_id = userData.em || userData.ph;
     }
     
     return userData;
@@ -61,86 +60,36 @@ function getEnhancedUserData() {
   }
 }
 
-// Generate unique event ID for deduplication
-function generateEventId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
-}
-
 /**
  * Track event with both Browser Pixel and Conversions API
- * @param eventName - Standard event name (PageView, Purchase, etc.)
- * @param customData - Event parameters (value, currency, etc.)
  */
-export async function trackEvent(
-  eventName: string,
-  customData?: Record<string, any>
-) {
-  // Validate event data
-  const validation = validateEventData(eventName, customData);
-  if (!validation.isValid) {
-    console.warn('Event validation failed:', validation.errors);
-    // Continue tracking even with warnings, but log the issues
-  }
-
+async function trackEvent(eventName: string, customData?: Record<string, any>) {
   const eventId = generateEventId();
-  const eventTime = Math.floor(Date.now() / 1000);
-  const config = getTrackingConfig();
+  const userData = getUserData();
 
-  // Format currency values properly
-  const formattedCustomData = customData ? {
-    ...customData,
-    ...(customData.value && { value: formatCurrencyValue(customData.value) })
-  } : {};
-
-  // 1. Track with Browser Pixel (client-side)
+  // 1. Track with Browser Pixel (client-side) using the package
   if (typeof window !== 'undefined' && (window as any).fbq) {
-    (window as any).fbq('track', eventName, formattedCustomData, { eventID: eventId });
-    
-    // Also track as custom event for unattributed traffic
-    if (eventName !== 'PageView') {
-      (window as any).fbq('trackCustom', `${eventName}_Unattributed`, formattedCustomData, { eventID: `${eventId}_unattributed` });
-    }
+    (window as any).fbq('track', eventName, customData || {}, { eventID: eventId });
   }
 
-  // 2. Track with Conversions API (server-side) with retry logic
-  const enhancedUserData = getEnhancedUserData();
-  
-  const sendToConversionsAPI = async (retryCount = 0) => {
-    try {
-      const response = await fetch('/api/conversions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_name: eventName,
-          event_id: eventId,
-          event_time: eventTime,
-          user_data: {
-            event_source_url: window.location.href,
-            fbp: getCookie('_fbp'),
-            fbc: getCookie('_fbc'),
-            ...enhancedUserData, // Include email, phone, external_id if available
-          },
-          custom_data: formattedCustomData,
-          ...(config.testEventCode && { test_event_code: config.testEventCode })
-        })
-      });
-
-      if (!response.ok && retryCount < config.retryAttempts - 1) {
-        // Retry with exponential backoff
-        setTimeout(() => sendToConversionsAPI(retryCount + 1), config.retryDelay * Math.pow(2, retryCount));
-      } else if (!response.ok) {
-        console.error('Conversions API failed after retries:', await response.text());
-      }
-    } catch (error) {
-      console.error('Conversions API error:', error);
-      if (retryCount < config.retryAttempts - 1) {
-        // Retry on network errors
-        setTimeout(() => sendToConversionsAPI(retryCount + 1), config.retryDelay * Math.pow(2, retryCount));
-      }
-    }
-  };
-
-  sendToConversionsAPI();
+  // 2. Track with Conversions API (server-side)
+  try {
+    await fetch('/api/fb-events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        eventName,
+        eventId,
+        sourceUrl: window.location.href,
+        fbp: getCookie('_fbp'),
+        fbc: getCookie('_fbc'),
+        ...userData,
+        ...customData,
+      })
+    });
+  } catch (error) {
+    console.error('Conversions API error:', error);
+  }
 }
 
 /**
