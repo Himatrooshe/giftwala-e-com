@@ -66,27 +66,47 @@ function getUserData() {
 async function trackEvent(eventName: string, customData?: Record<string, any>) {
   const eventId = generateEventId();
   const userData = getUserData();
+  const fbp = getCookie('_fbp');
+  const fbc = getCookie('_fbc');
 
-  // 1. Track with Browser Pixel (client-side) using the package
+  // Debug logging
+  const isDebug = process.env.NEXT_PUBLIC_FB_DEBUG === 'true';
+  if (isDebug && typeof window !== 'undefined') {
+    console.log(`📊 Tracking ${eventName}:`, {
+      eventId,
+      fbp,
+      hasUserData: !!(userData.emails || userData.phones),
+      customData
+    });
+  }
+
+  // 1. Track with Browser Pixel (client-side)
   if (typeof window !== 'undefined' && (window as any).fbq) {
     (window as any).fbq('track', eventName, customData || {}, { eventID: eventId });
   }
 
   // 2. Track with Conversions API (server-side)
   try {
-    await fetch('/api/fb-events', {
+    const response = await fetch('/api/fb-events', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         eventName,
-        eventId,
+        eventId, // Critical: Must match eventID sent to pixel
         sourceUrl: window.location.href,
-        fbp: getCookie('_fbp'),
-        fbc: getCookie('_fbc'),
+        fbp,
+        fbc,
         ...userData,
         ...customData,
       })
     });
+
+    if (!response.ok) {
+      console.error(`Conversions API error for ${eventName}:`, await response.text());
+    } else if (isDebug) {
+      const result = await response.json();
+      console.log(`✅ ${eventName} sent to API:`, result);
+    }
   } catch (error) {
     console.error('Conversions API error:', error);
   }
